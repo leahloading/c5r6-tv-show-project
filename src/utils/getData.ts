@@ -1,8 +1,8 @@
-import episodes from "../data/episodes.json"
-import Episode from "../types/Episode"
+import episodes from "../data/episodes.json";
+import Episode from "../types/Episode";
 
 const getData = (): Episode[] => {
-    return episodes
-}
+  return episodes;
+};
 
-export default getData
+export default getData;
