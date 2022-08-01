@@ -24,3 +24,11 @@ You can now view academy-react-starter in the browser.
 Note that the development build is not optimized.
 To create a production build, use yarn build.
 ```
+
+## Brief
+
+[WeAreAcademy/mark-react-proj--tv-shows](https://github.com/WeAreAcademy/mark-react-proj--tv-shows)
+
+You must make a React app which shows details of all of the episodes of a TV show.
+
+The episode data will come from TV Maze.
