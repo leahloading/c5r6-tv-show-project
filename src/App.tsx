@@ -1,7 +1,6 @@
 import EpisodeCard from "./components/EpisodeCard";
 import Episode from "./types/Episode";
 import getData from "./utils/getData";
-import { greet } from "./utils/greet";
 
 function App(): JSX.Element {
   const episodeList: Episode[] = getData();
