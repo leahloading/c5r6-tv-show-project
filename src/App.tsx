@@ -8,10 +8,11 @@ function App(): JSX.Element {
 
   return (
     <>
-      <h1>{greet("TV Shows App")}</h1>
+      <h1>TV Shows</h1>
       {episodeList.map((ep) => (
         <EpisodeCard key={ep.id} episode={ep} />
       ))}
+      <footer>Data has been obtained from <a href="https://www.tvmaze.com/api#licensing" target="_blank">TV Maze</a></footer>
     </>
   );
 }
