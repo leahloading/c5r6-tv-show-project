@@ -11,7 +11,16 @@ function App(): JSX.Element {
       {episodeList.map((ep) => (
         <EpisodeCard key={ep.id} episode={ep} />
       ))}
-      <footer>Data has been obtained from <a href="https://www.tvmaze.com/api#licensing" target="_blank">TV Maze</a></footer>
+      <footer>
+        Data has been obtained from{" "}
+        <a
+          href="https://www.tvmaze.com/api#licensing"
+          target="_blank"
+          rel="noreferrer"
+        >
+          TV Maze
+        </a>
+      </footer>
     </>
   );
 }
