@@ -24,9 +24,3 @@ function EpisodeCard({ episode }: Prop): JSX.Element {
 }
 
 export default EpisodeCard;
-
-// [x] the episode's name
-// [x] the season number (see below)
-// [x] the episode number (see below)
-// [x] the episode's medium-sized image
-// [x] the episode's summary text (see below)
