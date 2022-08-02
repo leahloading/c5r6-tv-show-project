@@ -38,13 +38,12 @@ function App(): JSX.Element {
         onChange={handleSelect}
         value={searchTerm}
       >
-        <option value="" selected>
+        <option value="">
           Select All
         </option>
         {episodeList.map((ep) => (
-          <option key={ep.id} value={ep.name}>{`${generateEpisodeCode(ep)} - ${
-            ep.name
-          }`}</option>
+          <option key={ep.id} value={ep.name}>{`${generateEpisodeCode(ep)} - ${ep.name
+            }`}</option>
         ))}
       </select>
       <button onClick={handleReset}>reset search</button>
