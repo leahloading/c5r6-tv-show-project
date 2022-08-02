@@ -1,5 +1,7 @@
 import getData from "./getData";
 
 test("getData returns the expected length", () => {
-  expect(getData()).toHaveLength(73);
+  return getData().then((data) => {
+    expect(data.length).toBe(73);
+  });
 });

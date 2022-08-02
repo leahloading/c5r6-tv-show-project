@@ -2,8 +2,8 @@
 import Episode from "../types/Episode";
 
 const getData = async (): Promise<Episode[]> => {
-  const response = await fetch("https://api.tvmaze.com/shows/82/episodes")
-  const episodes: Promise<Episode[]> = await response.json()
+  const response = await fetch("https://api.tvmaze.com/shows/82/episodes");
+  const episodes: Promise<Episode[]> = await response.json();
   return episodes;
 };
 
