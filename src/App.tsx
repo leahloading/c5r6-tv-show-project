@@ -31,11 +31,16 @@ function App(): JSX.Element {
     <>
       <h1>TV Shows</h1>
       <input type="text" value={searchTerm} onChange={handleChange} />
+      <p>
+        Episodes found:{" "}
+        {episodeList.filter((ep) => filterEpisodes(ep, searchTerm)).length}
+      </p>
       {episodeList
         .filter((ep) => filterEpisodes(ep, searchTerm))
         .map((ep) => (
           <EpisodeCard key={ep.id} episode={ep} />
         ))}
+
       <footer>
         Data has been obtained from{" "}
         <a
