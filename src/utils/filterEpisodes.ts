@@ -5,7 +5,7 @@ function filterEpisodes(
   searchTerm: string
 ): boolean {
   [summary, name, searchTerm] = [summary, name, searchTerm].map((e) =>
-    e.toLowerCase()
+    e!.toLowerCase()
   );
 
   return summary.includes(searchTerm) || name.includes(searchTerm);

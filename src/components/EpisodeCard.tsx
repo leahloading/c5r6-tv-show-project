@@ -18,7 +18,7 @@ function EpisodeCard({ episode }: Prop): JSX.Element {
         {episode.name} <span>{generateEpisodeCode(episode)}</span>
       </h3>
       <p>{removePTags(episode)}</p>
-      <img src={episode.image.medium} alt={`${episode.name}`} />
+      <img src={episode.image!.medium} alt={`${episode.name}`} />
     </article>
   );
 }

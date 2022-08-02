@@ -29,34 +29,32 @@ interface WideEpisode {
 
 const getData = (): Episode[] => {
 
-  const wideEpisode: WideEpisode = episodes as WideEpisode
+  const wideEpisodes: WideEpisode[] = episodes
 
-  if (wideEpisode) {
-    const cleanedData = episodes.map((ep) => {
-      id: ep.id
-      url: ep.url;
-      name: ep.name;
-      season: ep.season;
-      number: ep.number;
-      type: ep.type;
-      airdate: ep.airdate;
-      airtime: ep.airtime;
-      airstamp: ep.airstamp;
-      runtime: ep.runtime;
-      rating: {
-        average: ep.rating.average || -1
-      };
-      image: ep.image || null;
-      summary: ep.summary || "summary missing";
-      _links: {
-        self: {
-          href: ep._links.self.href;
-        };
-      };
-    })
-  }
+  const cleanedEpisodes: Episode[] = wideEpisodes.map((ep) => ({
+    id: ep.id,
+    url: ep.url,
+    name: ep.name,
+    season: ep.season,
+    number: ep.number,
+    type: ep.type,
+    airdate: ep.airdate,
+    airtime: ep.airtime,
+    airstamp: ep.airstamp,
+    runtime: ep.runtime,
+    rating: {
+      average: ep.rating.average || null
+    },
+    image: ep.image || null,
+    summary: ep.summary || null,
+    _links: {
+      self: {
+        href: ep._links.self.href,
+      },
+    },
+  }))
 
-  return cleanedData
+  return cleanedEpisodes
 
 };
 
