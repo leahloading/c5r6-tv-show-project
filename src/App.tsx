@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
 import EpisodeCard from "./components/EpisodeCard";
 import Episode from "./types/Episode";
-import filterEpisodes from "./utils/filterEpisodes";
-import generateEpisodeCode from "./utils/generateEpisodeCode";
 import getData from "./utils/getData";
 
 function App(): JSX.Element {
@@ -18,9 +16,17 @@ function App(): JSX.Element {
     console.log(searchTerm);
   }, [searchTerm]);
 
-  const filteredEpisodes = episodeList.filter((ep) =>
-    filterEpisodes(ep, searchTerm)
-  );
+  function filterEpisodes(
+    { summary, name }: Episode,
+    searchTerm: string
+  ): boolean {
+    [summary, name, searchTerm] = [summary, name, searchTerm].map((e) =>
+      e.toLowerCase()
+    );
+
+    return summary.includes(searchTerm) || name.includes(searchTerm);
+  }
+
   return (
     <>
       <h1>TV Shows</h1>
@@ -31,10 +37,15 @@ function App(): JSX.Element {
         })}
       </select>
       <input type="text" value={searchTerm} onChange={handleChange} />
-      <p>Episodes found: {filteredEpisodes.length}</p>
-      {filteredEpisodes.map((ep) => (
-        <EpisodeCard key={ep.id} episode={ep} />
-      ))}
+      <p>
+        Episodes found:{" "}
+        {episodeList.filter((ep) => filterEpisodes(ep, searchTerm)).length}
+      </p>
+      {episodeList
+        .filter((ep) => filterEpisodes(ep, searchTerm))
+        .map((ep) => (
+          <EpisodeCard key={ep.id} episode={ep} />
+        ))}
 
       <footer>
         Data has been obtained from{" "}
