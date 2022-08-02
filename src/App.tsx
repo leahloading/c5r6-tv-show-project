@@ -6,9 +6,13 @@ import generateEpisodeCode from "./utils/generateEpisodeCode";
 import getData from "./utils/getData";
 
 function App(): JSX.Element {
-  const episodeList: Episode[] = getData();
 
   const [searchTerm, setSearchTerm] = useState("");
+  const [episodeList, setEpisodeList] = useState<Episode[]>([]);
+
+  useEffect(() => {
+    getData().then((data) => setEpisodeList(data))
+  }, [])
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(e.target.value);
