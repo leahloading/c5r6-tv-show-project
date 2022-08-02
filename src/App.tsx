@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import EpisodeCard from "./components/EpisodeCard";
 import Episode from "./types/Episode";
 import filterEpisodes from "./utils/filterEpisodes";
+import generateEpisodeCode from "./utils/generateEpisodeCode";
 import getData from "./utils/getData";
 
 function App(): JSX.Element {
@@ -23,6 +24,12 @@ function App(): JSX.Element {
   return (
     <>
       <h1>TV Shows</h1>
+      <select name="episodes" id="episodes">
+        <option value="">--Please choose an option</option>
+        {filteredEpisodes.map((ep) => {
+          <option value={ep.name}>{`${ep.name} ${generateEpisodeCode(ep)}`}</option>
+        })}
+      </select>
       <input type="text" value={searchTerm} onChange={handleChange} />
       <p>Episodes found: {filteredEpisodes.length}</p>
       {filteredEpisodes.map((ep) => (
