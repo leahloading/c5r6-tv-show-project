@@ -10,13 +10,13 @@ interface Episode {
   airstamp: string;
   runtime: number;
   rating: {
-    average: number | null;
+    average: number;
   };
   image: {
     medium: string;
     original: string;
-  } | null;
-  summary: string | null;
+  };
+  summary: string;
   _links: {
     self: {
       href: string;
