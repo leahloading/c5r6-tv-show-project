@@ -1,4 +1,4 @@
-interface Episode {
+interface WideEpisode {
   id: number;
   url: string;
   name: string;
@@ -24,4 +24,4 @@ interface Episode {
   };
 }
 
-export default Episode;
+export default WideEpisode;
