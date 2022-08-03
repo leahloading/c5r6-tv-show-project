@@ -1,13 +1,20 @@
 import React, { useEffect, useState } from "react";
 import EpisodeCard from "./components/EpisodeCard";
 import Episode from "./types/Episode";
+import fetchEpisodesFromURL from "./utils/fetchEpisodes";
 import filterEpisodes from "./utils/filterEpisodes";
-import getData from "./utils/getData";
+import generateEpisodeCode from "./utils/generateEpisodeCode";
+import getEpisodes from "./utils/getEpisodes";
 
 function App(): JSX.Element {
-  const episodeList: Episode[] = getData();
-
   const [searchTerm, setSearchTerm] = useState("");
+  const [episodeList, setEpisodeList] = useState<Episode[]>([]);
+
+  useEffect(() => {
+    getEpisodes(() =>
+      fetchEpisodesFromURL("https://api.tvmaze.com/shows/83/episodes")
+    ).then((data) => setEpisodeList(data));
+  }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(e.target.value);
@@ -17,6 +24,10 @@ function App(): JSX.Element {
     console.log(searchTerm);
   }, [searchTerm]);
 
+  const handleSelect = (e: React.ChangeEvent<HTMLSelectElement>) =>
+    setSearchTerm(e.target.value);
+  const handleReset = () => setSearchTerm("");
+
   const filteredEpisodes = episodeList.filter((ep) =>
     filterEpisodes(ep, searchTerm)
   );
@@ -24,6 +35,20 @@ function App(): JSX.Element {
     <>
       <h1>TV Shows</h1>
       <input type="text" value={searchTerm} onChange={handleChange} />
+      <select
+        name="episode"
+        id="episode-select"
+        onChange={handleSelect}
+        value={searchTerm}
+      >
+        <option value="">Select All</option>
+        {episodeList.map((ep) => (
+          <option key={ep.id} value={ep.name}>{`${generateEpisodeCode(ep)} - ${
+            ep.name
+          }`}</option>
+        ))}
+      </select>
+      <button onClick={handleReset}>reset search</button>
       <p>Episodes found: {filteredEpisodes.length}</p>
       {filteredEpisodes.map((ep) => (
         <EpisodeCard key={ep.id} episode={ep} />

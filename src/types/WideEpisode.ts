@@ -1,4 +1,4 @@
-interface Episode {
+interface WideEpisode {
   id: number;
   url: string;
   name: string;
@@ -15,8 +15,8 @@ interface Episode {
   image: {
     medium: string;
     original: string;
-  };
-  summary: string;
+  } | null;
+  summary: string | null;
   _links: {
     self: {
       href: string;
@@ -24,4 +24,4 @@ interface Episode {
   };
 }
 
-export default Episode;
+export default WideEpisode;

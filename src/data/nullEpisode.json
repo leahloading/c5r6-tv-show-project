@@ -1,0 +1,25 @@
+{
+  "id": -1,
+  "url": "https://placekitten.com/600/400",
+  "name": "Title Not Found",
+  "season": -1,
+  "number": -1,
+  "type": "Unknown",
+  "airdate": "Unknown",
+  "airtime": "Unknown",
+  "airstamp": "Unknown",
+  "runtime": -1,
+  "rating": {
+    "average": null
+  },
+  "image": {
+    "medium": "https://placekitten.com/600/400",
+    "original": "https://placekitten.com/1600/800"
+  },
+  "summary": "No Summary",
+  "_links": {
+    "self": {
+      "href": "https://placekitten.com/3200/1600"
+    }
+  }
+}
