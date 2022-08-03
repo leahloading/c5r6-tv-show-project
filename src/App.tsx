@@ -17,31 +17,33 @@ function App(): JSX.Element {
   const [selectedShow, setSelectedShow] = useState<Show>();
 
   useEffect(() => {
-    getShows(() => fetchStaticShows()).then((shows) => setShowList(sortShowsAlphabetically(shows)));
+    getShows(() => fetchStaticShows()).then((shows) =>
+      setShowList(sortShowsAlphabetically(shows))
+    );
     getEpisodes(() =>
       fetchEpisodesFromURL(`${selectedShow?._links.self.href}/episodes`)
     ).then((episodes) => setEpisodeList(episodes));
   }, [selectedShow]);
-
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(e.target.value);
   };
 
   useEffect(() => {
-    console.log(selectedShow)
+    console.log(selectedShow);
     console.log(searchTerm);
   }, [searchTerm, selectedShow]);
 
   const handleSelect = (e: React.ChangeEvent<HTMLSelectElement>) =>
     setSearchTerm(e.target.value);
 
-
   const handleShowSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
     console.log(e.target.value);
-    const selectedShows = showList.filter((show) => show.id.toString() === e.target.value);
+    const selectedShows = showList.filter(
+      (show) => show.id.toString() === e.target.value
+    );
     setSelectedShow(selectedShows[0]);
-  }
+  };
 
   const handleReset = () => setSearchTerm("");
 
@@ -53,7 +55,6 @@ function App(): JSX.Element {
       <h1>TV Shows</h1>
       <input type="text" value={searchTerm} onChange={handleChange} />
 
-
       <select
         name="show"
         id="show-select"
@@ -62,12 +63,9 @@ function App(): JSX.Element {
       >
         <option value="">Select a Show</option>
         {showList.map((show) => (
-          <option key={show.id} value={show.id}>{`${show.name
-            }`}</option>
+          <option key={show.id} value={show.id}>{`${show.name}`}</option>
         ))}
       </select>
-
-
 
       <select
         name="episode"
@@ -77,8 +75,9 @@ function App(): JSX.Element {
       >
         <option value="">Select All</option>
         {episodeList.map((ep) => (
-          <option key={ep.id} value={ep.name}>{`${generateEpisodeCode(ep)} - ${ep.name
-            }`}</option>
+          <option key={ep.id} value={ep.name}>{`${generateEpisodeCode(ep)} - ${
+            ep.name
+          }`}</option>
         ))}
       </select>
       <button onClick={handleReset}>reset search</button>
