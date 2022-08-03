@@ -1,8 +1,8 @@
 import fetchStaticEpisodes from "./fetchStaticEpisodes";
-import getData from "./getEpisodes";
+import getEpisodes from "./getEpisodes";
 
 test("getData returns the expected length", () => {
-  return getData(fetchStaticEpisodes).then((data) => {
-    expect(data.length).toBe(73);
+  return getEpisodes(fetchStaticEpisodes).then((episodes) => {
+    expect(episodes.length).toBe(73);
   });
 });

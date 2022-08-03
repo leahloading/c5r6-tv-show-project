@@ -2,7 +2,7 @@ import nullEpisode from "../data/nullEpisode.json";
 import Episode from "../types/Episode";
 import WideEpisode from "../types/WideEpisode";
 
-const getData = async (
+const getEpisodes = async (
   fetchEpisodes: () => Promise<WideEpisode[]>
 ): Promise<Episode[]> => {
   const widelyTypedEpisodes: WideEpisode[] = await fetchEpisodes();
@@ -35,4 +35,4 @@ const narrowEpisodeType = (episode: WideEpisode): Episode => ({
   },
 });
 
-export default getData;
+export default getEpisodes;
