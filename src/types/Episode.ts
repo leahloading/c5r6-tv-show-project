@@ -15,8 +15,8 @@ interface Episode {
   image: {
     medium: string;
     original: string;
-  } | null;
-  summary: string | null;
+  };
+  summary: string;
   _links: {
     self: {
       href: string;
