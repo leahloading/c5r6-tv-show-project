@@ -2,8 +2,10 @@ import nullEpisode from "../data/nullEpisode.json";
 import Episode from "../types/Episode";
 import WideEpisode from "../types/WideEpisode";
 
-const getData = async (fetchEpisodes: () => Promise<WideEpisode[]>): Promise<Episode[]> => {
-  const widelyTypedEpisodes: WideEpisode[] = await fetchEpisodes()
+const getData = async (
+  fetchEpisodes: () => Promise<WideEpisode[]>
+): Promise<Episode[]> => {
+  const widelyTypedEpisodes: WideEpisode[] = await fetchEpisodes();
   const narrowlyTypedEpisodes = widelyTypedEpisodes.map((ep: WideEpisode) =>
     narrowEpisodeType(ep)
   );

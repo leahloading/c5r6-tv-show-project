@@ -11,7 +11,9 @@ function App(): JSX.Element {
   const [episodeList, setEpisodeList] = useState<Episode[]>([]);
 
   useEffect(() => {
-    getEpisodes(() => fetchEpisodesFromURL("https://api.tvmaze.com/shows/83/episodes")).then((data) => setEpisodeList(data));
+    getEpisodes(() =>
+      fetchEpisodesFromURL("https://api.tvmaze.com/shows/83/episodes")
+    ).then((data) => setEpisodeList(data));
   }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -41,8 +43,9 @@ function App(): JSX.Element {
       >
         <option value="">Select All</option>
         {episodeList.map((ep) => (
-          <option key={ep.id} value={ep.name}>{`${generateEpisodeCode(ep)} - ${ep.name
-            }`}</option>
+          <option key={ep.id} value={ep.name}>{`${generateEpisodeCode(ep)} - ${
+            ep.name
+          }`}</option>
         ))}
       </select>
       <button onClick={handleReset}>reset search</button>
