@@ -8,18 +8,20 @@ import filterEpisodes from "./utils/filterEpisodes";
 import generateEpisodeCode from "./utils/generateEpisodeCode";
 import getEpisodes from "./utils/getEpisodes";
 import getShows from "./utils/getShows";
+import sortShowsAlphabetically from "./utils/sortShowsAlphabetically";
 
 function App(): JSX.Element {
   const [searchTerm, setSearchTerm] = useState("");
   const [episodeList, setEpisodeList] = useState<Episode[]>([]);
-  const [seasonList, setSeasonList] = useState<Show[]>();
+  const [showList, setShowList] = useState<Show[]>([]);
+  const [selectedShow, setSelectedShow] = useState<Show>();
 
   useEffect(() => {
-    getShows(() => fetchStaticShows()).then((shows) => setSeasonList(shows));
+    getShows(() => fetchStaticShows()).then((shows) => setShowList(sortShowsAlphabetically(shows)));
     getEpisodes(() =>
-      fetchEpisodesFromURL("https://api.tvmaze.com/shows/83/episodes")
+      fetchEpisodesFromURL(`${selectedShow?._links.self.href}/episodes`)
     ).then((episodes) => setEpisodeList(episodes));
-  }, []);
+  }, [selectedShow]);
 
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -27,11 +29,20 @@ function App(): JSX.Element {
   };
 
   useEffect(() => {
+    console.log(selectedShow)
     console.log(searchTerm);
-  }, [searchTerm]);
+  }, [searchTerm, selectedShow]);
 
   const handleSelect = (e: React.ChangeEvent<HTMLSelectElement>) =>
     setSearchTerm(e.target.value);
+
+
+  const handleShowSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    console.log(e.target.value);
+    const selectedShows = showList.filter((show) => show.id.toString() === e.target.value);
+    setSelectedShow(selectedShows[0]);
+  }
+
   const handleReset = () => setSearchTerm("");
 
   const filteredEpisodes = episodeList.filter((ep) =>
@@ -41,6 +52,23 @@ function App(): JSX.Element {
     <>
       <h1>TV Shows</h1>
       <input type="text" value={searchTerm} onChange={handleChange} />
+
+
+      <select
+        name="show"
+        id="show-select"
+        onChange={handleShowSelect}
+        value={selectedShow?.id}
+      >
+        <option value="">Select a Show</option>
+        {showList.map((show) => (
+          <option key={show.id} value={show.id}>{`${show.name
+            }`}</option>
+        ))}
+      </select>
+
+
+
       <select
         name="episode"
         id="episode-select"
