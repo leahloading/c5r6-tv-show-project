@@ -2,10 +2,11 @@ import Episode from "../types/Episode";
 import Show from "../types/Show";
 import filterEpisodes from "../utils/filterEpisodes";
 import generateEpisodeCode from "../utils/generateEpisodeCode";
+import DisplayList from "./DisplayList";
 import EpisodeCard from "./EpisodeCard";
-import EpisodeSelector from "./EpisodeSelector";
+import FilterBar from "./FilterBar";
 
-interface Props {
+interface EpisodeSelectorProps {
   searchTerm: string;
   setSearchTerm: (str: string) => void;
   episodeList: Episode[];
@@ -16,7 +17,7 @@ interface Props {
   setSelectedShow: (show: Show) => void;
 }
 
-const PageMain = ({
+const EpisodeSelector = ({
   searchTerm,
   setSearchTerm,
   episodeList,
@@ -25,30 +26,10 @@ const PageMain = ({
   setShowList,
   selectedShow,
   setSelectedShow,
-}: Props): JSX.Element => {
-  const handleShowSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    console.log(e.target.value);
-    const selectedShows = showList.filter(
-      (show) => show.id.toString() === e.target.value
-    );
-    setSelectedShow(selectedShows[0]);
-  };
-
+}: EpisodeSelectorProps) => {
   return (
-    <main>
-      <select
-        name="show"
-        id="show-select"
-        onChange={handleShowSelect}
-        value={selectedShow?.id}
-      >
-        <option value="">Select a Show</option>
-        {showList.map((show) => (
-          <option key={show.id} value={show.id}>{`${show.name}`}</option>
-        ))}
-      </select>
-
-      <EpisodeSelector
+    <>
+      <FilterBar
         searchTerm={searchTerm}
         setSearchTerm={setSearchTerm}
         episodeList={episodeList}
@@ -58,8 +39,18 @@ const PageMain = ({
         selectedShow={selectedShow}
         setSelectedShow={setSelectedShow}
       />
-    </main>
+      <DisplayList
+        searchTerm={searchTerm}
+        setSearchTerm={setSearchTerm}
+        episodeList={episodeList}
+        setEpisodeList={setEpisodeList}
+        showList={showList}
+        setShowList={setShowList}
+        selectedShow={selectedShow}
+        setSelectedShow={setSelectedShow}
+      />
+    </>
   );
 };
 
-export default PageMain;
+export default EpisodeSelector;
