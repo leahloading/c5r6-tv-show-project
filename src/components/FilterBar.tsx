@@ -1,27 +1,16 @@
 import Episode from "../types/Episode";
-import Show from "../types/Show";
 import generateEpisodeCode from "../utils/generateEpisodeCode";
 
 interface EpisodeSelectorProps {
   searchTerm: string;
   setSearchTerm: (str: string) => void;
   episodeList: Episode[];
-  setEpisodeList: (ep: Episode[]) => void;
-  showList: Show[];
-  setShowList: (shows: Show[]) => void;
-  selectedShow?: Show;
-  setSelectedShow: (show: Show) => void;
 }
 
 const FilterBar = ({
   searchTerm,
   setSearchTerm,
   episodeList,
-  setEpisodeList,
-  showList,
-  setShowList,
-  selectedShow,
-  setSelectedShow,
 }: EpisodeSelectorProps) => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(e.target.value);

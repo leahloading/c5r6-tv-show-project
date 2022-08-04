@@ -7,7 +7,7 @@ interface Prop {
   episode: Episode;
 }
 
-function EpisodeCard({ episode }: Prop): JSX.Element {
+function Card({ episode }: Prop): JSX.Element {
   return (
     <article
       id={`${removeEpNameSpace(episode)}-${generateEpisodeCode(
@@ -23,4 +23,4 @@ function EpisodeCard({ episode }: Prop): JSX.Element {
   );
 }
 
-export default EpisodeCard;
+export default Card;

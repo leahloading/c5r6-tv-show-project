@@ -1,9 +1,6 @@
 import Episode from "../types/Episode";
 import Show from "../types/Show";
-import filterEpisodes from "../utils/filterEpisodes";
-import generateEpisodeCode from "../utils/generateEpisodeCode";
-import EpisodeCard from "./EpisodeCard";
-import EpisodeSelector from "./EpisodeSelector";
+import Selector from "./Selector";
 
 interface Props {
   searchTerm: string;
@@ -48,7 +45,7 @@ const PageMain = ({
         ))}
       </select>
 
-      <EpisodeSelector
+      <Selector
         searchTerm={searchTerm}
         setSearchTerm={setSearchTerm}
         episodeList={episodeList}
