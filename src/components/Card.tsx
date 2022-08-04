@@ -1,24 +1,28 @@
 import Episode from "../types/Episode";
+import Show from "../types/Show";
 import generateEpisodeCode from "../utils/generateEpisodeCode";
 import removeEpNameSpace from "../utils/removeEpNameSpace";
 import removePTags from "../utils/removePTags";
 
 interface Prop {
-  episode: Episode;
+  item: Episode | Show;
+  id: string;
+  provideID: (el: Episode) => string | ((el: Show) => string);
 }
 
-function Card({ episode }: Prop): JSX.Element {
+function Card({ item, id }: Prop): JSX.Element {
   return (
     <article
-      id={`${removeEpNameSpace(episode)}-${generateEpisodeCode(
-        episode
+      // id = id
+      id={`${removeEpNameSpace(item)}-${generateEpisodeCode(
+        item
       )}`.toLowerCase()}
     >
       <h3>
-        {episode.name} <span>{generateEpisodeCode(episode)}</span>
+        {item.name} <span>{generateEpisodeCode(item)}</span>
       </h3>
-      <p>{removePTags(episode)}</p>
-      <img src={episode.image.medium} alt={`${episode.name}`} />
+      <p>{removePTags(item)}</p>
+      <img src={item.image.medium} alt={`${item.name}`} />
     </article>
   );
 }

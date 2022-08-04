@@ -1,16 +1,19 @@
 import Episode from "../types/Episode";
+import Show from "../types/Show";
 import generateEpisodeCode from "../utils/generateEpisodeCode";
 
 interface EpisodeSelectorProps {
   searchTerm: string;
   setSearchTerm: (str: string) => void;
-  episodeList: Episode[];
+  itemList: Episode[] | Show[];
+  dropdownItemName: (el: Episode) => string | ((el: Show) => string);
 }
 
 const FilterBar = ({
   searchTerm,
   setSearchTerm,
-  episodeList,
+  itemList,
+  dropdownItemName,
 }: EpisodeSelectorProps) => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(e.target.value);
@@ -31,10 +34,10 @@ const FilterBar = ({
         value={searchTerm}
       >
         <option value="">Select All</option>
-        {episodeList.map((ep) => (
-          <option key={ep.id} value={ep.name}>{`${generateEpisodeCode(ep)} - ${
-            ep.name
-          }`}</option>
+        {itemList.map((el) => (
+          <option key={el.id} value={el.name}>
+            {dropdownItemName(el)}
+          </option>
         ))}
       </select>
 

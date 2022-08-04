@@ -1,5 +1,6 @@
 import Episode from "../types/Episode";
 import Show from "../types/Show";
+import generateEpisodeCode from "../utils/generateEpisodeCode";
 import Selector from "./Selector";
 
 interface Props {
@@ -31,9 +32,13 @@ const PageMain = ({
     setSelectedShow(selectedShows[0]);
   };
 
+  function dropdownEpisodeName(el: Episode) {
+    return `${generateEpisodeCode(el)} - ${el.name}`;
+  }
+
   return (
     <main>
-      <select
+      {/* <select
         name="show"
         id="show-select"
         onChange={handleShowSelect}
@@ -43,9 +48,10 @@ const PageMain = ({
         {showList.map((show) => (
           <option key={show.id} value={show.id}>{`${show.name}`}</option>
         ))}
-      </select>
+      </select> */}
 
       <Selector
+        className="Show"
         searchTerm={searchTerm}
         setSearchTerm={setSearchTerm}
         episodeList={episodeList}
@@ -54,6 +60,19 @@ const PageMain = ({
         setShowList={setShowList}
         selectedShow={selectedShow}
         setSelectedShow={setSelectedShow}
+      />
+
+      <Selector
+        className="Episode"
+        searchTerm={searchTerm}
+        setSearchTerm={setSearchTerm}
+        episodeList={episodeList}
+        setEpisodeList={setEpisodeList}
+        showList={showList}
+        setShowList={setShowList}
+        selectedShow={selectedShow}
+        setSelectedShow={setSelectedShow}
+        dropdownItemName={dropdownEpisodeName}
       />
     </main>
   );

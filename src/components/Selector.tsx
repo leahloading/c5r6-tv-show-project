@@ -1,33 +1,37 @@
 import Episode from "../types/Episode";
 import Show from "../types/Show";
+import generateEpisodeCode from "../utils/generateEpisodeCode";
 import DisplayList from "./DisplayList";
 import FilterBar from "./FilterBar";
 
 interface SelectorProps {
   searchTerm: string;
   setSearchTerm: (str: string) => void;
-  episodeList: Episode[];
-  setEpisodeList: (ep: Episode[]) => void;
-  showList: Show[];
-  setShowList: (shows: Show[]) => void;
-  selectedShow?: Show;
-  setSelectedShow: (show: Show) => void;
+  itemList: Episode[] | Show[];
+  setItemList: (el: Episode[] | Show[]) => void;
+  selectedItem?: Episode | Show;
+  setSelectedItem: (el: Episode | Show) => void;
+  className: string;
+  dropdownItemName: (el: Episode) => string | ((el: Show) => string);
 }
 
 const Selector = ({
   searchTerm,
   setSearchTerm,
-  episodeList,
+  itemList,
+  className,
+  dropdownItemName,
 }: SelectorProps) => {
   return (
-    <>
+    <div className={`${className} Selector`}>
       <FilterBar
         searchTerm={searchTerm}
         setSearchTerm={setSearchTerm}
-        episodeList={episodeList}
+        itemList={itemList}
+        dropdownItemName={dropdownItemName}
       />
-      <DisplayList searchTerm={searchTerm} episodeList={episodeList} />
-    </>
+      <DisplayList searchTerm={searchTerm} itemList={itemList} />
+    </div>
   );
 };
 
