@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import PageFooter from "./components/PageFooter";
 import PageHeader from "./components/PageHeader";
 import PageMain from "./components/PageMain";
 import Episode from "./types/Episode";
@@ -42,16 +43,7 @@ function App(): JSX.Element {
         selectedShow={selectedShow}
         setSelectedShow={setSelectedShow}
       />
-      <footer>
-        Data has been obtained from{" "}
-        <a
-          href="https://www.tvmaze.com/api#licensing"
-          target="_blank"
-          rel="noreferrer"
-        >
-          TV Maze
-        </a>
-      </footer>
+      <PageFooter />
     </>
   );
 }
