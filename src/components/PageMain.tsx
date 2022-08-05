@@ -57,18 +57,20 @@ const PageMain = ({
         onCardClick={setSelectedShow}
       />
 
-      <Selector
-        className="Episode"
-        selectedItem={selectedEpisode}
-        setSelectedItem={setSelectedEpisode}
-        itemList={episodeList}
-        setItemList={setEpisodeList}
-        dropdownItemName={dropdownEpisodeName}
-        itemDisplay={episodeDisplay}
-        setItemDisplay={setEpisodeDisplay}
-        itemSearchFunction={searchEpisode}
-        onCardClick={setSelectedEpisode}
-      />
+      {selectedShow === null || (
+        <Selector
+          className="Episode"
+          selectedItem={selectedEpisode}
+          setSelectedItem={setSelectedEpisode}
+          itemList={episodeList}
+          setItemList={setEpisodeList}
+          dropdownItemName={dropdownEpisodeName}
+          itemDisplay={episodeDisplay}
+          setItemDisplay={setEpisodeDisplay}
+          itemSearchFunction={searchEpisode}
+          onCardClick={setSelectedEpisode}
+        />
+      )}
     </main>
   );
 };
