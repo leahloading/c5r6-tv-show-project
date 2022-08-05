@@ -1,12 +1,11 @@
 import Episode from "../types/Episode";
 import Show from "../types/Show";
-import generateEpisodeCode from "../utils/generateEpisodeCode";
 
-interface EpisodeSelectorProps {
+interface ItemSelectorProps<ItemType> {
   searchTerm: string;
   setSearchTerm: (str: string) => void;
-  itemList: Episode[] | Show[];
-  dropdownItemName: (el: Episode) => string | ((el: Show) => string);
+  itemList: ItemType[];
+  dropdownItemName: (el: ItemType) => string;
 }
 
 const FilterBar = ({
@@ -14,7 +13,7 @@ const FilterBar = ({
   setSearchTerm,
   itemList,
   dropdownItemName,
-}: EpisodeSelectorProps) => {
+}: ItemSelectorProps) => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(e.target.value);
   };

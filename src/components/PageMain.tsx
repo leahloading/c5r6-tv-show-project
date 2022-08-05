@@ -50,16 +50,15 @@ const PageMain = ({
         ))}
       </select> */}
 
-      <Selector
+      <Selector<Show>
         className="Show"
         searchTerm={searchTerm}
         setSearchTerm={setSearchTerm}
-        episodeList={episodeList}
-        setEpisodeList={setEpisodeList}
-        showList={showList}
-        setShowList={setShowList}
-        selectedShow={selectedShow}
-        setSelectedShow={setSelectedShow}
+        selectedItem={selectedShow}
+        setSelectedItem={setSelectedShow} // Expected to Work
+        // tell me how id the dropdown menu
+        // tell me how id the card
+        // tell me how to present the title
       />
 
       <Selector

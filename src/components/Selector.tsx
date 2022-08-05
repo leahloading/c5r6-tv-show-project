@@ -4,24 +4,27 @@ import generateEpisodeCode from "../utils/generateEpisodeCode";
 import DisplayList from "./DisplayList";
 import FilterBar from "./FilterBar";
 
-interface SelectorProps {
+// TODO Selector Prop can have a ItemType
+type ItemType = Episode | Show;
+
+interface SelectorProps<Item extends ItemType> {
   searchTerm: string;
   setSearchTerm: (str: string) => void;
-  itemList: Episode[] | Show[];
-  setItemList: (el: Episode[] | Show[]) => void;
-  selectedItem?: Episode | Show;
-  setSelectedItem: (el: Episode | Show) => void;
+  itemList: Item[];
+  setItemList: (el: Item) => void;
+  selectedItem?: Item;
+  setSelectedItem: (el: Item) => void;
   className: string;
-  dropdownItemName: (el: Episode) => string | ((el: Show) => string);
+  dropdownItemName: (el: Item) => string;
 }
 
-const Selector = ({
+function Selector<T extends ItemType>({
   searchTerm,
   setSearchTerm,
   itemList,
   className,
   dropdownItemName,
-}: SelectorProps) => {
+}: SelectorProps<T>) {
   return (
     <div className={`${className} Selector`}>
       <FilterBar
@@ -33,6 +36,6 @@ const Selector = ({
       <DisplayList searchTerm={searchTerm} itemList={itemList} />
     </div>
   );
-};
+}
 
 export default Selector;
