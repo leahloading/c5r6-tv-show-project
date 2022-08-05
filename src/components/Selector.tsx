@@ -10,7 +10,7 @@ interface SelectorProps {
   itemList: Episode[] | Show[];
   setItemList: (el: Episode[] | Show[]) => void;
   selectedItem?: Episode | Show;
-  setSelectedItem: (el: Episode | Show) => void;
+  setSelectedItem: ((show: Show) => void) | ((el: Episode) => void)
   className: string;
   dropdownItemName: (el: Episode) => string | ((el: Show) => string);
 }
