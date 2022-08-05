@@ -12,8 +12,8 @@ interface EpisodeSelectorProps {
     searchTerm: string,
     itemList: (Episode | Show)[]
   ) => number[];
-  selectedItem: Episode | Show | null;
-  setSelectedItem: (el: Episode | Show | null) => void;
+  selectedItem: number | null;
+  setSelectedItem: (id: number | null) => void;
 }
 
 const FilterBar = ({
@@ -35,10 +35,14 @@ const FilterBar = ({
 
   const handleSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
     console.log(`${e.target.value} << DropDown Menu Selected`);
-    setItemDisplay([parseInt(e.target.value)]);
-    setSelectedItem(
-      itemList.filter((item) => item.id.toString() === e.target.value)[0]
-    );
+    if (e.target.value === "") {
+      setItemDisplay(itemList.map((item) => item.id));
+      setSelectedItem(null);
+    } else {
+      const id = parseInt(e.target.value);
+      setItemDisplay([id]);
+      setSelectedItem(id);
+    }
   };
 
   const handleReset = () => {
@@ -54,7 +58,7 @@ const FilterBar = ({
         name="episode"
         id="episode-select"
         onChange={handleSelect}
-        value={selectedItem?.id}
+        value={selectedItem ? selectedItem : undefined}
       >
         <option value="">Select All</option>
         {itemList.map((el) => (

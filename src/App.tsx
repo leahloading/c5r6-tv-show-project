@@ -15,10 +15,8 @@ function App(): JSX.Element {
   const [showDisplay, setShowDisplay] = useState<number[]>([]);
   const [episodeList, setEpisodeList] = useState<Episode[]>([]);
   const [showList, setShowList] = useState<Show[]>([]);
-  const [selectedShow, setSelectedShow] = useState<Show | Episode | null>(null);
-  const [selectedEpisode, setSelectedEpisode] = useState<Episode | Show | null>(
-    null
-  );
+  const [selectedShow, setSelectedShow] = useState<number | null>(null);
+  const [selectedEpisode, setSelectedEpisode] = useState<number | null>(null);
 
   useEffect(() => {
     getShows(() => fetchStaticShows()).then((shows) => {
@@ -29,19 +27,22 @@ function App(): JSX.Element {
   }, []);
 
   useEffect(() => {
+    const showToLoad: Show = showList.filter((sh) => sh.id === selectedShow)[0];
     getEpisodes(() =>
-      fetchEpisodesFromURL(`${selectedShow?._links.self.href}/episodes`)
+      fetchEpisodesFromURL(`${showToLoad?._links.self.href}/episodes`)
     ).then((episodes) => {
+      selectedShow && setShowDisplay([selectedShow]);
       setEpisodeDisplay(episodes.map((ep) => ep.id));
       setEpisodeList(episodes);
     });
-  }, [selectedShow]);
+  }, [selectedShow, showList]);
 
   useEffect(() => {
-    console.log(selectedShow);
-    console.log(selectedEpisode);
-    console.log(showDisplay);
-  }, [selectedEpisode, selectedShow, showDisplay]);
+    if (selectedEpisode !== null) {
+      setEpisodeDisplay([selectedEpisode]);
+      console.log("selectedEpisode from App", selectedEpisode);
+    }
+  }, [selectedEpisode, episodeList]);
 
   return (
     <>

@@ -4,15 +4,17 @@ import removePTags from "../utils/removePTags";
 
 interface Prop {
   item: Episode | Show;
-  id: string;
+  id: number;
   name: string;
   summary: string;
+  onClick: (id: number | null) => void;
 }
 
-function Card({ item, id, name, summary }: Prop): JSX.Element {
+function Card({ item, id, name, summary, onClick }: Prop): JSX.Element {
   return (
-    <article id={id}>
+    <article id={id.toString()}>
       <h3>{name}</h3>
+      <button onClick={() => onClick(id)}>Pick</button>
       <p>{removePTags(summary)}</p>
       <img src={item.image.medium} alt={`${item.name}`} />
     </article>

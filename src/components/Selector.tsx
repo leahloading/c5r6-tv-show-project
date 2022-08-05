@@ -9,14 +9,15 @@ interface SelectorProps {
   setItemDisplay: (ids: number[]) => void;
   itemList: Episode[] | Show[];
   setItemList: ((show: Show[]) => void) | ((el: Episode[]) => void);
-  selectedItem: Episode | Show | null;
-  setSelectedItem: (item: Show | Episode | null) => void;
+  selectedItem: number | null;
+  setSelectedItem: (id: number | null) => void;
   className: string;
   dropdownItemName: (el: Episode | Show) => string;
   itemSearchFunction: (
     searchTerm: string,
     itemList: (Episode | Show)[]
   ) => number[];
+  onCardClick: (id: number | null) => void;
 }
 
 const Selector = ({
@@ -28,6 +29,7 @@ const Selector = ({
   itemSearchFunction,
   selectedItem,
   setSelectedItem,
+  onCardClick,
 }: SelectorProps): JSX.Element => {
   return (
     <div className={`${className} Selector`}>
@@ -46,6 +48,7 @@ const Selector = ({
         itemList={itemList}
         itemType={className}
         nameCard={nameCard}
+        onCardClick={onCardClick}
       />
     </div>
   );

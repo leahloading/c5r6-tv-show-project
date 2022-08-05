@@ -14,10 +14,10 @@ interface Props {
   setEpisodeList: (ep: Episode[]) => void;
   showList: Show[];
   setShowList: (shows: Show[]) => void;
-  selectedShow: Show | Episode | null;
-  setSelectedShow: (show: Show | Episode | null) => void;
-  selectedEpisode: Episode | Show | null;
-  setSelectedEpisode: (show: Episode | Show | null) => void;
+  selectedShow: number | null;
+  setSelectedShow: (id: number | null) => void;
+  selectedEpisode: number | null;
+  setSelectedEpisode: (id: number | null) => void;
 }
 
 const PageMain = ({
@@ -54,21 +54,21 @@ const PageMain = ({
         itemDisplay={showDisplay}
         setItemDisplay={setShowDisplay}
         itemSearchFunction={searchShow}
+        onCardClick={setSelectedShow}
       />
 
-      {selectedEpisode || (
-        <Selector
-          className="Episode"
-          selectedItem={selectedEpisode}
-          setSelectedItem={setSelectedEpisode}
-          itemList={episodeList}
-          setItemList={setEpisodeList}
-          dropdownItemName={dropdownEpisodeName}
-          itemDisplay={episodeDisplay}
-          setItemDisplay={setEpisodeDisplay}
-          itemSearchFunction={searchEpisode}
-        />
-      )}
+      <Selector
+        className="Episode"
+        selectedItem={selectedEpisode}
+        setSelectedItem={setSelectedEpisode}
+        itemList={episodeList}
+        setItemList={setEpisodeList}
+        dropdownItemName={dropdownEpisodeName}
+        itemDisplay={episodeDisplay}
+        setItemDisplay={setEpisodeDisplay}
+        itemSearchFunction={searchEpisode}
+        onCardClick={setSelectedEpisode}
+      />
     </main>
   );
 };

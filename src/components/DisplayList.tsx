@@ -8,6 +8,7 @@ interface DisplayListProps {
   itemList: (Episode | Show)[];
   itemType: string;
   nameCard: (item: Episode | Show) => string;
+  onCardClick: (id: number | null) => void;
 }
 
 const DisplayList = ({
@@ -15,9 +16,14 @@ const DisplayList = ({
   itemList,
   itemType,
   nameCard,
+  onCardClick,
 }: DisplayListProps): JSX.Element => {
   const filteredItems = itemList.filter((item: Episode | Show) =>
     filterItem(item, ids)
+  );
+  console.log(
+    "filtered item: ",
+    filteredItems.map((i) => i.id)
   );
 
   return (
@@ -31,8 +37,9 @@ const DisplayList = ({
             key={el.id}
             item={el}
             name={nameCard(el)}
-            id={el.id.toString()}
+            id={el.id}
             summary={el.summary}
+            onClick={onCardClick}
           />
         ))}
       </section>
