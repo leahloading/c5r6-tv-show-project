@@ -14,11 +14,17 @@ interface Props {
   setSelectedShow: (show: Show) => void;
   selectedEpisode?: Episode;
   setSelectedEpisode: (show: Episode) => void;
+  episodeSearchTerm: string;
+  setEpisodeSearchTerm: (str: string) => void;
+  showSearchTerm: string;
+  setShowSearchTerm: (str: string) => void;
 }
 
 const PageMain = ({
-  searchTerm,
-  setSearchTerm,
+  episodeSearchTerm,
+  setEpisodeSearchTerm,
+  showSearchTerm,
+  setShowSearchTerm,
   episodeList,
   setEpisodeList,
   showList,
@@ -48,8 +54,8 @@ const PageMain = ({
     <main>
       <Selector
         className="Show"
-        searchTerm={searchTerm}
-        setSearchTerm={setSearchTerm}
+        searchTerm={showSearchTerm}
+        setSearchTerm={setShowSearchTerm}
         selectedItem={selectedShow}
         setSelectedItem={setSelectedShow}
         itemList={showList}
@@ -60,8 +66,8 @@ const PageMain = ({
 
       <Selector
         className="Episode"
-        searchTerm={searchTerm}
-        setSearchTerm={setSearchTerm}
+        searchTerm={episodeSearchTerm}
+        setSearchTerm={setEpisodeSearchTerm}
         itemList={episodeList}
         setItemList={setEpisodeList}
         selectedItem={selectedEpisode}
