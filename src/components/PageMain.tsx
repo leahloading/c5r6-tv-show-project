@@ -71,7 +71,7 @@ const PageMain = ({
         showList={showList}
         setShowList={setShowList}
         selectedShow={selectedShow}
-        setSelectedShow={setSelectedShow}
+        setSelectedItem={setSelectedShow}
         dropdownItemName={dropdownEpisodeName}
       />
     </main>

@@ -34,6 +34,3 @@ test("filterEpisodes returns episodes matching the search criteria", () => {
   expect(filterEpisodes(mockEpisode, "Winter")).toBe(true);
 });
 
-// test("getData returns the expected length", () => {
-//     expect(getData()).toHaveLength(73);
-//   });
