@@ -11,7 +11,8 @@ interface SelectorProps {
   selectedItem?: Episode | Show;
   setSelectedItem: ((show: Show) => void) | ((el: Episode) => void);
   className: string;
-  dropdownItemName: ((el: Episode) => string) | ((el: Show) => string);
+  dropdownItemName: (el: Episode | Show) => string;
+  filterForIds: (items: (Episode | Show)[]) => number[];
 }
 
 const Selector = ({
@@ -20,6 +21,7 @@ const Selector = ({
   itemList,
   className,
   dropdownItemName,
+  filterForIds,
 }: SelectorProps) => {
   return (
     <div className={`${className} Selector`}>
@@ -29,7 +31,11 @@ const Selector = ({
         itemList={itemList}
         dropdownItemName={dropdownItemName}
       />
-      <DisplayList searchTerm={searchTerm} itemList={itemList} />
+      <DisplayList
+        ids={filterForIds(itemList)}
+        itemList={itemList}
+        itemType={className}
+      />
     </div>
   );
 };

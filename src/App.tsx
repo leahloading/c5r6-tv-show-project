@@ -15,6 +15,7 @@ function App(): JSX.Element {
   const [episodeList, setEpisodeList] = useState<Episode[]>([]);
   const [showList, setShowList] = useState<Show[]>([]);
   const [selectedShow, setSelectedShow] = useState<Show>();
+  const [selectedEpisode, setSelectedEpisode] = useState<Episode>();
 
   useEffect(() => {
     getShows(() => fetchStaticShows()).then((shows) =>
@@ -42,6 +43,8 @@ function App(): JSX.Element {
         setShowList={setShowList}
         selectedShow={selectedShow}
         setSelectedShow={setSelectedShow}
+        selectedEpisode={selectedEpisode}
+        setSelectedEpisode={setSelectedEpisode}
       />
       <PageFooter />
     </>

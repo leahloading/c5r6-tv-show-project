@@ -1,24 +1,34 @@
 import Episode from "../types/Episode";
 import Show from "../types/Show";
 import filterEpisodes from "../utils/filterEpisodes";
+import filterItem from "../utils/filterItem";
 import Card from "./Card";
 
 interface DisplayListProps {
-  searchTerm: string;
-  itemList: Episode[] | Show[];
+  ids: number[];
+  itemList: (Episode | Show)[];
+  itemType: string;
 }
 
-const DisplayList = ({ searchTerm, itemList }: DisplayListProps) => {
-  const filteredEpisodes: Episode[] | Show[] = itemList.filter(
-    (ep: Episode | Show) => filterEpisodes(ep, searchTerm)
+const DisplayList = ({ ids, itemList, itemType }: DisplayListProps) => {
+  const filteredItems = itemList.filter((item: Episode | Show) =>
+    filterItem(item, ids)
   );
 
   return (
-    <section className="episode selector">
+    <section className={`${itemType.toLocaleLowerCase} selector`}>
       <section className="displayList">
-        <p>Episodes found: {filteredEpisodes.length}</p>
-        {filteredEpisodes.map((el: Episode | Show) => (
-          <Card key={el.id} episode={el} />
+        <p>
+          {itemType} found: {filteredItems.length}
+        </p>
+        {filteredItems.map((el: Episode | Show) => (
+          <Card
+            key={el.id}
+            item={el}
+            name={el.name}
+            id={el.id.toString()}
+            paragraph={el.summary}
+          />
         ))}
       </section>
     </section>

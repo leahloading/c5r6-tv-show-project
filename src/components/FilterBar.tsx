@@ -1,12 +1,11 @@
 import Episode from "../types/Episode";
 import Show from "../types/Show";
-import generateEpisodeCode from "../utils/generateEpisodeCode";
 
 interface EpisodeSelectorProps {
   searchTerm: string;
   setSearchTerm: (str: string) => void;
-  itemList: Episode[] | Show[];
-  dropdownItemName: (el: Episode) => string | ((el: Show) => string);
+  itemList: (Episode | Show)[];
+  dropdownItemName: (el: Episode | Show) => string;
 }
 
 const FilterBar = ({

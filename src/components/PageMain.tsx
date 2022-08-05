@@ -12,6 +12,8 @@ interface Props {
   setShowList: (shows: Show[]) => void;
   selectedShow?: Show;
   setSelectedShow: (show: Show) => void;
+  selectedEpisode?: Episode;
+  setSelectedEpisode: (show: Episode) => void;
 }
 
 const PageMain = ({
@@ -23,6 +25,8 @@ const PageMain = ({
   setShowList,
   selectedShow,
   setSelectedShow,
+  selectedEpisode,
+  setSelectedEpisode,
 }: Props): JSX.Element => {
   const handleShowSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
     console.log(e.target.value);
@@ -32,24 +36,16 @@ const PageMain = ({
     setSelectedShow(selectedShows[0]);
   };
 
-  function dropdownEpisodeName(el: Episode) {
-    return `${generateEpisodeCode(el)} - ${el.name}`;
+  function dropdownEpisodeName(el: Episode | Show) {
+    if ("season" in el) {
+      return `${generateEpisodeCode(el)} - ${el.name}`;
+    } else {
+      return el.name;
+    }
   }
 
   return (
     <main>
-      {/* <select
-        name="show"
-        id="show-select"
-        onChange={handleShowSelect}
-        value={selectedShow?.id}
-      >
-        <option value="">Select a Show</option>
-        {showList.map((show) => (
-          <option key={show.id} value={show.id}>{`${show.name}`}</option>
-        ))}
-      </select> */}
-
       <Selector
         className="Show"
         searchTerm={searchTerm}
@@ -58,20 +54,20 @@ const PageMain = ({
         setSelectedItem={setSelectedShow}
         itemList={showList}
         setItemList={setShowList}
-        dropdownItemName={(show: Show) => show.name}
+        dropdownItemName={(show: Show | Episode) => show.name}
+        filterForIds={(a: (Show | Episode)[]) => [3, 3]}
       />
 
       <Selector
         className="Episode"
         searchTerm={searchTerm}
         setSearchTerm={setSearchTerm}
-        episodeList={episodeList}
-        setEpisodeList={setEpisodeList}
-        showList={showList}
-        setShowList={setShowList}
-        selectedShow={selectedShow}
-        setSelectedItem={setSelectedShow}
+        itemList={episodeList}
+        setItemList={setEpisodeList}
+        selectedItem={selectedEpisode}
+        setSelectedItem={setSelectedEpisode}
         dropdownItemName={dropdownEpisodeName}
+        filterForIds={(a: (Show | Episode)[]) => [3, 3]}
       />
     </main>
   );

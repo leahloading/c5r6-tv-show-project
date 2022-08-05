@@ -7,21 +7,20 @@ import removePTags from "../utils/removePTags";
 interface Prop {
   item: Episode | Show;
   id: string;
-  provideID: (el: Episode) => string | ((el: Show) => string);
+  name: string;
+  paragraph: string;
 }
 
-function Card({ item, id }: Prop): JSX.Element {
+function Card({ item, id, name, paragraph }: Prop): JSX.Element {
   return (
     <article
       // id = id
-      id={`${removeEpNameSpace(item)}-${generateEpisodeCode(
-        item
-      )}`.toLowerCase()}
+      id={id}
     >
       <h3>
-        {item.name} <span>{generateEpisodeCode(item)}</span>
+        {item.name} <span>{name}</span>
       </h3>
-      <p>{removePTags(item)}</p>
+      <p>{paragraph}</p>
       <img src={item.image.medium} alt={`${item.name}`} />
     </article>
   );
