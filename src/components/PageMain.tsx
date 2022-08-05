@@ -1,30 +1,30 @@
 import Episode from "../types/Episode";
 import Show from "../types/Show";
 import generateEpisodeCode from "../utils/generateEpisodeCode";
+import searchEpisode from "../utils/searchEpisode";
+import searchShow from "../utils/searchShows";
 import Selector from "./Selector";
 
 interface Props {
-  searchTerm: string;
-  setSearchTerm: (str: string) => void;
+  episodeDisplay: number[];
+  setEpisodeDisplay: (ids: number[]) => void;
+  showDisplay: number[];
+  setShowDisplay: (ids: number[]) => void;
   episodeList: Episode[];
   setEpisodeList: (ep: Episode[]) => void;
   showList: Show[];
   setShowList: (shows: Show[]) => void;
-  selectedShow?: Show;
-  setSelectedShow: (show: Show) => void;
-  selectedEpisode?: Episode;
-  setSelectedEpisode: (show: Episode) => void;
-  episodeSearchTerm: string;
-  setEpisodeSearchTerm: (str: string) => void;
-  showSearchTerm: string;
-  setShowSearchTerm: (str: string) => void;
+  selectedShow: Show | Episode | null;
+  setSelectedShow: (show: Show | Episode | null) => void;
+  selectedEpisode: Episode | Show | null;
+  setSelectedEpisode: (show: Episode | Show | null) => void;
 }
 
 const PageMain = ({
-  episodeSearchTerm,
-  setEpisodeSearchTerm,
-  showSearchTerm,
-  setShowSearchTerm,
+  episodeDisplay,
+  setEpisodeDisplay,
+  showDisplay,
+  setShowDisplay,
   episodeList,
   setEpisodeList,
   showList,
@@ -34,14 +34,6 @@ const PageMain = ({
   selectedEpisode,
   setSelectedEpisode,
 }: Props): JSX.Element => {
-  const handleShowSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    console.log(e.target.value);
-    const selectedShows = showList.filter(
-      (show) => show.id.toString() === e.target.value
-    );
-    setSelectedShow(selectedShows[0]);
-  };
-
   function dropdownEpisodeName(el: Episode | Show) {
     if ("season" in el) {
       return `${generateEpisodeCode(el)} - ${el.name}`;
@@ -54,27 +46,29 @@ const PageMain = ({
     <main>
       <Selector
         className="Show"
-        searchTerm={showSearchTerm}
-        setSearchTerm={setShowSearchTerm}
         selectedItem={selectedShow}
         setSelectedItem={setSelectedShow}
         itemList={showList}
         setItemList={setShowList}
         dropdownItemName={(show: Show | Episode) => show.name}
-        filterForIds={(a: (Show | Episode)[]) => [3, 3]}
+        itemDisplay={showDisplay}
+        setItemDisplay={setShowDisplay}
+        itemSearchFunction={searchShow}
       />
 
-      <Selector
-        className="Episode"
-        searchTerm={episodeSearchTerm}
-        setSearchTerm={setEpisodeSearchTerm}
-        itemList={episodeList}
-        setItemList={setEpisodeList}
-        selectedItem={selectedEpisode}
-        setSelectedItem={setSelectedEpisode}
-        dropdownItemName={dropdownEpisodeName}
-        filterForIds={(a: (Show | Episode)[]) => [3, 3]}
-      />
+      {selectedEpisode || (
+        <Selector
+          className="Episode"
+          selectedItem={selectedEpisode}
+          setSelectedItem={setSelectedEpisode}
+          itemList={episodeList}
+          setItemList={setEpisodeList}
+          dropdownItemName={dropdownEpisodeName}
+          itemDisplay={episodeDisplay}
+          setItemDisplay={setEpisodeDisplay}
+          itemSearchFunction={searchEpisode}
+        />
+      )}
     </main>
   );
 };

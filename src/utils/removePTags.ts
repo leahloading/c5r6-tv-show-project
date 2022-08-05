@@ -1,6 +1,4 @@
-import Episode from "../types/Episode";
-
-function removePTags({ summary }: Episode): string {
+function removePTags(summary: string): string {
   const regex = /<.{1,2}>/gi;
   return summary.replaceAll(regex, "");
 }

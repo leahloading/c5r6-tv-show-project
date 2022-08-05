@@ -1,4 +1,4 @@
-const PageFooter = () => {
+const PageFooter = (): JSX.Element => {
   return (
     <footer>
       Data has been obtained from{" "}

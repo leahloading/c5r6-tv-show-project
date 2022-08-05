@@ -1,27 +1,49 @@
+import { useState } from "react";
 import Episode from "../types/Episode";
 import Show from "../types/Show";
 
 interface EpisodeSelectorProps {
-  searchTerm: string;
-  setSearchTerm: (str: string) => void;
+  itemDisplay: number[];
+  setItemDisplay: (ids: number[]) => void;
   itemList: (Episode | Show)[];
   dropdownItemName: (el: Episode | Show) => string;
+  itemSearchFunction: (
+    searchTerm: string,
+    itemList: (Episode | Show)[]
+  ) => number[];
+  selectedItem: Episode | Show | null;
+  setSelectedItem: (el: Episode | Show | null) => void;
 }
 
 const FilterBar = ({
-  searchTerm,
-  setSearchTerm,
+  itemDisplay,
+  setItemDisplay,
   itemList,
   dropdownItemName,
-}: EpisodeSelectorProps) => {
+  itemSearchFunction,
+  selectedItem,
+  setSelectedItem,
+}: EpisodeSelectorProps): JSX.Element => {
+  const [searchTerm, setSearchTerm] = useState("");
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setItemDisplay(itemSearchFunction(e.target.value, itemList));
     setSearchTerm(e.target.value);
   };
 
-  const handleSelect = (e: React.ChangeEvent<HTMLSelectElement>) =>
-    setSearchTerm(e.target.value);
+  const handleSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    console.log(`${e.target.value} << DropDown Menu Selected`);
+    setItemDisplay([parseInt(e.target.value)]);
+    setSelectedItem(
+      itemList.filter((item) => item.id.toString() === e.target.value)[0]
+    );
+  };
 
-  const handleReset = () => setSearchTerm("");
+  const handleReset = () => {
+    setItemDisplay(itemList.map((item) => item.id));
+    setSelectedItem(null);
+    setSearchTerm("");
+  };
 
   return (
     <section className="filterBar">
@@ -30,11 +52,11 @@ const FilterBar = ({
         name="episode"
         id="episode-select"
         onChange={handleSelect}
-        value={searchTerm}
+        value={selectedItem?.id}
       >
         <option value="">Select All</option>
         {itemList.map((el) => (
-          <option key={el.id} value={el.name}>
+          <option key={el.id} value={el.id}>
             {dropdownItemName(el)}
           </option>
         ))}

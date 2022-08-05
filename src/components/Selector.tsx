@@ -4,38 +4,42 @@ import DisplayList from "./DisplayList";
 import FilterBar from "./FilterBar";
 
 interface SelectorProps {
-  searchTerm: string;
-  setSearchTerm: (str: string) => void;
+  itemDisplay: number[];
+  setItemDisplay: (ids: number[]) => void;
   itemList: Episode[] | Show[];
   setItemList: ((show: Show[]) => void) | ((el: Episode[]) => void);
-  selectedItem?: Episode | Show;
-  setSelectedItem: ((show: Show) => void) | ((el: Episode) => void);
+  selectedItem: Episode | Show | null;
+  setSelectedItem: (item: Show | Episode | null) => void;
   className: string;
   dropdownItemName: (el: Episode | Show) => string;
-  filterForIds: (items: (Episode | Show)[]) => number[];
+  itemSearchFunction: (
+    searchTerm: string,
+    itemList: (Episode | Show)[]
+  ) => number[];
 }
 
 const Selector = ({
-  searchTerm,
-  setSearchTerm,
+  itemDisplay,
+  setItemDisplay,
   itemList,
   className,
   dropdownItemName,
-  filterForIds,
-}: SelectorProps) => {
+  itemSearchFunction,
+  selectedItem,
+  setSelectedItem,
+}: SelectorProps): JSX.Element => {
   return (
     <div className={`${className} Selector`}>
       <FilterBar
-        searchTerm={searchTerm}
-        setSearchTerm={setSearchTerm}
+        itemDisplay={itemDisplay}
+        setItemDisplay={setItemDisplay}
         itemList={itemList}
         dropdownItemName={dropdownItemName}
+        itemSearchFunction={itemSearchFunction}
+        selectedItem={selectedItem}
+        setSelectedItem={setSelectedItem}
       />
-      <DisplayList
-        ids={filterForIds(itemList)}
-        itemList={itemList}
-        itemType={className}
-      />
+      <DisplayList ids={itemDisplay} itemList={itemList} itemType={className} />
     </div>
   );
 };

@@ -1,6 +1,5 @@
 import Episode from "../types/Episode";
 import Show from "../types/Show";
-import filterEpisodes from "../utils/filterEpisodes";
 import filterItem from "../utils/filterItem";
 import Card from "./Card";
 
@@ -10,7 +9,11 @@ interface DisplayListProps {
   itemType: string;
 }
 
-const DisplayList = ({ ids, itemList, itemType }: DisplayListProps) => {
+const DisplayList = ({
+  ids,
+  itemList,
+  itemType,
+}: DisplayListProps): JSX.Element => {
   const filteredItems = itemList.filter((item: Episode | Show) =>
     filterItem(item, ids)
   );
@@ -27,7 +30,7 @@ const DisplayList = ({ ids, itemList, itemType }: DisplayListProps) => {
             item={el}
             name={el.name}
             id={el.id.toString()}
-            paragraph={el.summary}
+            summary={el.summary}
           />
         ))}
       </section>
