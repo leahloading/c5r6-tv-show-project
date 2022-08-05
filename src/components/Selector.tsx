@@ -1,5 +1,6 @@
 import Episode from "../types/Episode";
 import Show from "../types/Show";
+import nameCard from "../utils/nameCard";
 import DisplayList from "./DisplayList";
 import FilterBar from "./FilterBar";
 
@@ -31,6 +32,7 @@ const Selector = ({
   return (
     <div className={`${className} Selector`}>
       <FilterBar
+        itemType={className}
         itemDisplay={itemDisplay}
         setItemDisplay={setItemDisplay}
         itemList={itemList}
@@ -39,7 +41,12 @@ const Selector = ({
         selectedItem={selectedItem}
         setSelectedItem={setSelectedItem}
       />
-      <DisplayList ids={itemDisplay} itemList={itemList} itemType={className} />
+      <DisplayList
+        ids={itemDisplay}
+        itemList={itemList}
+        itemType={className}
+        nameCard={nameCard}
+      />
     </div>
   );
 };

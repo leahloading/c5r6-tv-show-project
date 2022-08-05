@@ -3,6 +3,7 @@ import Episode from "../types/Episode";
 import Show from "../types/Show";
 
 interface EpisodeSelectorProps {
+  itemType: string;
   itemDisplay: number[];
   setItemDisplay: (ids: number[]) => void;
   itemList: (Episode | Show)[];
@@ -16,6 +17,7 @@ interface EpisodeSelectorProps {
 }
 
 const FilterBar = ({
+  itemType,
   itemDisplay,
   setItemDisplay,
   itemList,
@@ -46,7 +48,7 @@ const FilterBar = ({
   };
 
   return (
-    <section className="filterBar">
+    <section className={`${itemType.toLowerCase()} filter-bar`}>
       <input type="text" value={searchTerm} onChange={handleChange} />
       <select
         name="episode"

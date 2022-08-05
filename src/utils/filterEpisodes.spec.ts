@@ -33,4 +33,3 @@ test("filterEpisodes returns episodes matching the search criteria", () => {
 
   expect(filterEpisodes(mockEpisode, "Winter")).toBe(true);
 });
-
