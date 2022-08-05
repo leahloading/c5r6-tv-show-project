@@ -1,6 +1,5 @@
 import Episode from "../types/Episode";
 import Show from "../types/Show";
-import generateEpisodeCode from "../utils/generateEpisodeCode";
 import DisplayList from "./DisplayList";
 import FilterBar from "./FilterBar";
 
@@ -8,11 +7,11 @@ interface SelectorProps {
   searchTerm: string;
   setSearchTerm: (str: string) => void;
   itemList: Episode[] | Show[];
-  setItemList: (el: Episode[] | Show[]) => void;
+  setItemList: ((show: Show[]) => void) | ((el: Episode[]) => void);
   selectedItem?: Episode | Show;
-  setSelectedItem: ((show: Show) => void) | ((el: Episode) => void)
+  setSelectedItem: ((show: Show) => void) | ((el: Episode) => void);
   className: string;
-  dropdownItemName: (el: Episode) => string | ((el: Show) => string);
+  dropdownItemName: ((el: Episode) => string) | ((el: Show) => string);
 }
 
 const Selector = ({

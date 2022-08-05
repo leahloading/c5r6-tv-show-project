@@ -54,12 +54,11 @@ const PageMain = ({
         className="Show"
         searchTerm={searchTerm}
         setSearchTerm={setSearchTerm}
-        episodeList={episodeList}
-        setEpisodeList={setEpisodeList}
-        showList={showList}
-        setShowList={setShowList}
-        selectedShow={selectedShow}
-        setSelectedShow={setSelectedShow}
+        selectedItem={selectedShow}
+        setSelectedItem={setSelectedShow}
+        itemList={showList}
+        setItemList={setShowList}
+        dropdownItemName={(show: Show) => show.name}
       />
 
       <Selector
