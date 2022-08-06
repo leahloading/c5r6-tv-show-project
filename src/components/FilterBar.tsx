@@ -53,7 +53,13 @@ const FilterBar = ({
 
   return (
     <section className={`${itemType.toLowerCase()} filter-bar`}>
-      <input type="text" value={searchTerm} onChange={handleChange} />
+      <button onClick={handleReset}>reset search</button>
+      <input
+        type="text"
+        value={searchTerm}
+        onChange={handleChange}
+        placeholder={`search ${itemType.toLowerCase()}s...`}
+      />
       <select
         name="episode"
         id="episode-select"
@@ -67,8 +73,6 @@ const FilterBar = ({
           </option>
         ))}
       </select>
-
-      <button onClick={handleReset}>reset search</button>
     </section>
   );
 };

@@ -13,10 +13,16 @@ interface Prop {
 function Card({ item, id, name, summary, onClick }: Prop): JSX.Element {
   return (
     <article id={id.toString()}>
-      <h3>{name}</h3>
-      <button onClick={() => onClick(id)}>Pick</button>
-      <p>{removePTags(summary)}</p>
-      <img src={item.image.medium} alt={`${item.name}`} />
+      <h3 className="card-header">{name}</h3>
+      <div className="card-main">
+        <div className="image-container">
+          <img src={item.image.medium} alt={`${item.name}`} />
+        </div>
+        <div className="summary-pick">
+          <button onClick={() => onClick(id)}>Pick</button>
+          <p>{removePTags(summary)}</p>
+        </div>
+      </div>
     </article>
   );
 }

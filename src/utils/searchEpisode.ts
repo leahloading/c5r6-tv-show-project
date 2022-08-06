@@ -6,6 +6,7 @@ const searchEpisode = (
   itemList: (Episode | Show)[]
 ): number[] => {
   const filteredItems: (Episode | Show)[] = itemList.filter(
+    // TODO not case-sensitive
     (item: Episode | Show) => {
       if (item.name.includes(searchTerm)) {
         return true;

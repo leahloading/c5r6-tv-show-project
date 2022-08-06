@@ -28,10 +28,10 @@ const DisplayList = ({
 
   return (
     <section className={`${itemType.toLowerCase()} display`}>
-      <section className="displayList">
-        <p>
-          {itemType} found: {filteredItems.length}
-        </p>
+      <p className="found">
+        {itemType} found: {filteredItems.length}
+      </p>
+      <div className="results">
         {filteredItems.map((el: Episode | Show) => (
           <Card
             key={el.id}
@@ -42,7 +42,7 @@ const DisplayList = ({
             onClick={onCardClick}
           />
         ))}
-      </section>
+      </div>
     </section>
   );
 };
