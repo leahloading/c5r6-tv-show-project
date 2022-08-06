@@ -1,6 +1,8 @@
 import Episode from "../types/Episode";
 import Show from "../types/Show";
 import generateEpisodeCode from "../utils/generateEpisodeCode";
+import nameEpisodeCard from "../utils/nameEpisodeCard";
+import nameShowCard from "../utils/nameShowCard";
 import searchEpisode from "../utils/searchEpisode";
 import searchShow from "../utils/searchShows";
 import Selector from "./Selector";
@@ -55,6 +57,7 @@ const PageMain = ({
         setItemDisplay={setShowDisplay}
         itemSearchFunction={searchShow}
         onCardClick={setSelectedShow}
+        nameCard={nameShowCard}
       />
 
       {selectedShow === null || (
@@ -69,6 +72,7 @@ const PageMain = ({
           setItemDisplay={setEpisodeDisplay}
           itemSearchFunction={searchEpisode}
           onCardClick={setSelectedEpisode}
+          nameCard={nameEpisodeCard}
         />
       )}
     </main>

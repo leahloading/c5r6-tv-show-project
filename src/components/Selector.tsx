@@ -1,6 +1,5 @@
 import Episode from "../types/Episode";
 import Show from "../types/Show";
-import nameCard from "../utils/nameCard";
 import DisplayList from "./DisplayList";
 import FilterBar from "./FilterBar";
 
@@ -18,6 +17,7 @@ interface SelectorProps {
     itemList: (Episode | Show)[]
   ) => number[];
   onCardClick: (id: number | null) => void;
+  nameCard: (item: Episode | Show) => string;
 }
 
 const Selector = ({
@@ -30,6 +30,7 @@ const Selector = ({
   selectedItem,
   setSelectedItem,
   onCardClick,
+  nameCard,
 }: SelectorProps): JSX.Element => {
   return (
     <div className={`${className} Selector`}>

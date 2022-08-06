@@ -18,6 +18,7 @@ function App(): JSX.Element {
   const [selectedShow, setSelectedShow] = useState<number | null>(null);
   const [selectedEpisode, setSelectedEpisode] = useState<number | null>(null);
 
+  // intialise
   useEffect(() => {
     getShows(() => fetchStaticShows()).then((shows) => {
       const sortedShows = sortShowsAlphabetically(shows);
@@ -26,6 +27,7 @@ function App(): JSX.Element {
     });
   }, []);
 
+  // when show is selected
   useEffect(() => {
     const showToLoad: Show = showList.filter((sh) => sh.id === selectedShow)[0];
     getEpisodes(() =>
@@ -37,6 +39,7 @@ function App(): JSX.Element {
     });
   }, [selectedShow, showList]);
 
+  // when episode is selected
   useEffect(() => {
     if (selectedEpisode !== null) {
       setEpisodeDisplay([selectedEpisode]);
