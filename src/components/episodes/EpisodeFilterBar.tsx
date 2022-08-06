@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import AppState from "../../types/AppState";
 import Episode from "../../types/Episode";
 import generateEpisodeCode from "../../utils/episodes/generateEpisodeCode";
@@ -16,6 +16,13 @@ const EpisodeFilterBar = ({
   itemType,
 }: EpisodeSelectorProps): JSX.Element => {
   const [searchTerm, setSearchTerm] = useState("");
+  const [dropdownSelection, setDropdownSelection] = useState("");
+
+  useEffect(() => {
+    if (app.selectedEpisode !== null) {
+      setDropdownSelection(app.selectedEpisode.toString());
+    }
+  }, [app.selectedEpisode]);
 
   function dropdownEpisodeName(el: Episode) {
     return `${generateEpisodeCode(el)} - ${el.name}`;
@@ -24,8 +31,10 @@ const EpisodeFilterBar = ({
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setApp({
       ...app,
-      showDisplay: searchEpisode(e.target.value, app.episodeList),
+      episodeDisplay: searchEpisode(e.target.value, app.episodeList),
     });
+    setDropdownSelection("");
+    setSearchTerm(e.target.value);
   };
 
   const handleSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -36,6 +45,7 @@ const EpisodeFilterBar = ({
         episodeDisplay: app.episodeList.map((episode) => episode.id),
         selectedEpisode: null,
       });
+      setDropdownSelection("");
     } else {
       const id = parseInt(e.target.value);
       setApp({
@@ -53,6 +63,7 @@ const EpisodeFilterBar = ({
       selectedEpisode: null,
     });
     setSearchTerm("");
+    setDropdownSelection("");
   };
 
   return (
@@ -68,7 +79,7 @@ const EpisodeFilterBar = ({
         name="episode"
         id="episode-select"
         onChange={handleSelect}
-        value={app.selectedEpisode ? app.selectedEpisode : undefined}
+        value={dropdownSelection}
       >
         <option value="">Select All</option>
         {app.episodeList.map((el) => (

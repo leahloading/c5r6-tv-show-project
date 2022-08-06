@@ -18,10 +18,6 @@ const EpisodeDisplayList = ({
   const filteredItems = itemList.filter((item: Episode) =>
     presentInIdList(item.id, ids)
   );
-  console.log(
-    "filtered item: ",
-    filteredItems.map((i) => i.id)
-  );
 
   return (
     <section className={`${itemType.toLowerCase()} display`}>
