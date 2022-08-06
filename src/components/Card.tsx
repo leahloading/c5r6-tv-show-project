@@ -1,6 +1,6 @@
 import Episode from "../types/Episode";
 import Show from "../types/Show";
-import removePTags from "../utils/removePTags";
+import stripHtmlTags from "../utils/stripHtmlTags";
 
 interface Prop {
   item: Episode | Show;
@@ -20,7 +20,7 @@ function Card({ item, id, name, summary, onClick }: Prop): JSX.Element {
         </div>
         <div className="summary-pick">
           <button onClick={() => onClick(id)}>Pick</button>
-          <p>{removePTags(summary)}</p>
+          <p>{stripHtmlTags(summary)}</p>
         </div>
       </div>
     </article>
