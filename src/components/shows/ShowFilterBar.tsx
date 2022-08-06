@@ -1,46 +1,52 @@
 import { useState } from "react";
-import Show from "../../types/Show";
+import AppState from "../../types/AppState";
 import searchShow from "../../utils/shows/searchShows";
 
 interface ShowFilterBarProps {
+  app: AppState;
+  setApp: (app: AppState) => void;
   itemType: string;
-  itemDisplay: number[];
-  setItemDisplay: (ids: number[]) => void;
-  itemList: Show[];
-  selectedItem: number | null;
-  setSelectedItem: (id: number | null) => void;
 }
 
 const ShowFilterBar = ({
+  app,
+  setApp,
   itemType,
-  itemDisplay,
-  setItemDisplay,
-  itemList,
-  selectedItem,
-  setSelectedItem,
 }: ShowFilterBarProps): JSX.Element => {
   const [searchTerm, setSearchTerm] = useState("");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setItemDisplay(searchShow(e.target.value, itemList));
+    setApp({
+      ...app,
+      showDisplay: searchShow(e.target.value, app.showList),
+    });
     setSearchTerm(e.target.value);
   };
 
   const handleSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
     console.log(`${e.target.value} << DropDown Menu Selected`);
     if (e.target.value === "") {
-      setItemDisplay(itemList.map((item) => item.id));
-      setSelectedItem(null);
+      setApp({
+        ...app,
+        showDisplay: app.showList.map((show) => show.id),
+        selectedShow: null,
+      });
     } else {
       const id = parseInt(e.target.value);
-      setItemDisplay([id]);
-      setSelectedItem(id);
+      setApp({
+        ...app,
+        showDisplay: [id],
+        selectedShow: id,
+      });
     }
   };
 
   const handleReset = () => {
-    setItemDisplay(itemList.map((item) => item.id));
-    setSelectedItem(null);
+    setApp({
+      ...app,
+      showDisplay: app.showList.map((item) => item.id),
+      selectedShow: null,
+    });
     setSearchTerm("");
   };
 
@@ -57,10 +63,10 @@ const ShowFilterBar = ({
         name="show"
         id="show-select"
         onChange={handleSelect}
-        value={selectedItem ? selectedItem : undefined}
+        value={app.selectedShow ? app.selectedShow : undefined}
       >
         <option value="">Select All</option>
-        {itemList.map((el) => (
+        {app.showList.map((el) => (
           <option key={el.id} value={el.id}>
             {el.name}
           </option>

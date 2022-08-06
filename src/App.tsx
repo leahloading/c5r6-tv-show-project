@@ -67,18 +67,14 @@ function App(): JSX.Element {
     <>
       <PageHeader />
       <PageMain
+        app={app}
+        setApp={setApp}
         episodeList={app.episodeList}
         setEpisodeList={(i) => setApp({ ...app, episodeList: i })}
-        showList={app.showList}
-        setShowList={(i) => setApp({ ...app, showList: i })}
-        selectedShow={app.selectedShow}
-        setSelectedShow={(i) => setApp({ ...app, selectedShow: i })}
         selectedEpisode={app.selectedEpisode}
         setSelectedEpisode={(i) => setApp({ ...app, selectedEpisode: i })}
         episodeDisplay={app.episodeDisplay}
         setEpisodeDisplay={(i) => setApp({ ...app, episodeDisplay: i })}
-        showDisplay={app.showDisplay}
-        setShowDisplay={(i) => setApp({ ...app, showDisplay: i })}
       />
       <PageFooter />
     </>

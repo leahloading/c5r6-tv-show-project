@@ -1,42 +1,26 @@
-import Show from "../../types/Show";
+import AppState from "../../types/AppState";
 import ShowDisplayList from "./ShowDisplayList";
 import ShowFilterBar from "./ShowFilterBar";
 
 interface ShowSelectorProps {
-  itemDisplay: number[];
-  setItemDisplay: (ids: number[]) => void;
-  itemList: Show[];
-  setItemList: (show: Show[]) => void;
-  selectedItem: number | null;
-  setSelectedItem: (id: number | null) => void;
+  app: AppState;
+  setApp: (app: AppState) => void;
   className: string;
-  onCardClick: (id: number | null) => void;
 }
 
 const ShowSelector = ({
-  itemDisplay,
-  setItemDisplay,
-  itemList,
+  app,
+  setApp,
   className,
-  selectedItem,
-  setSelectedItem,
-  onCardClick,
 }: ShowSelectorProps): JSX.Element => {
   return (
     <div className={`${className} Selector`}>
-      <ShowFilterBar
-        itemType={className}
-        itemDisplay={itemDisplay}
-        setItemDisplay={setItemDisplay}
-        itemList={itemList}
-        selectedItem={selectedItem}
-        setSelectedItem={setSelectedItem}
-      />
+      <ShowFilterBar app={app} setApp={setApp} itemType={className} />
       <ShowDisplayList
-        ids={itemDisplay}
-        itemList={itemList}
+        ids={app.showDisplay}
+        itemList={app.showList}
         itemType={className}
-        onCardClick={onCardClick}
+        onCardClick={(id) => setApp({ ...app, selectedShow: id })}
       />
     </div>
   );

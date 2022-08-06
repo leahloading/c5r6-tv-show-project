@@ -1,51 +1,34 @@
+import AppState from "../types/AppState";
 import Episode from "../types/Episode";
-import Show from "../types/Show";
 import EpisodeSelector from "./episodes/EpisodeSelector";
 import ShowSelector from "./shows/ShowSelector";
 
 interface Props {
+  app: AppState;
+  setApp: (app: AppState) => void;
   episodeDisplay: number[];
   setEpisodeDisplay: (ids: number[]) => void;
-  showDisplay: number[];
-  setShowDisplay: (ids: number[]) => void;
   episodeList: Episode[];
   setEpisodeList: (ep: Episode[]) => void;
-  showList: Show[];
-  setShowList: (shows: Show[]) => void;
-  selectedShow: number | null;
-  setSelectedShow: (id: number | null) => void;
   selectedEpisode: number | null;
   setSelectedEpisode: (id: number | null) => void;
 }
 
 const PageMain = ({
+  app,
+  setApp,
   episodeDisplay,
   setEpisodeDisplay,
-  showDisplay,
-  setShowDisplay,
   episodeList,
   setEpisodeList,
-  showList,
-  setShowList,
-  selectedShow,
-  setSelectedShow,
   selectedEpisode,
   setSelectedEpisode,
 }: Props): JSX.Element => {
   return (
     <main>
-      <ShowSelector
-        className="Show"
-        selectedItem={selectedShow}
-        setSelectedItem={setSelectedShow}
-        itemList={showList}
-        setItemList={setShowList}
-        itemDisplay={showDisplay}
-        setItemDisplay={setShowDisplay}
-        onCardClick={setSelectedShow}
-      />
+      <ShowSelector app={app} setApp={setApp} className="Show" />
 
-      {selectedShow === null || (
+      {app.selectedShow === null || (
         <EpisodeSelector
           className="Episode"
           selectedItem={selectedEpisode}
