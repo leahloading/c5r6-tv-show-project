@@ -1,44 +1,26 @@
-import Episode from "../../types/Episode";
-import searchEpisode from "../../utils/episodes/searchEpisode";
+import AppState from "../../types/AppState";
 import DisplayList from "./EpisodeDisplayList";
 import EpisodeFilterBar from "./EpisodeFilterBar";
 
 interface EpisodeSelectorProps {
-  itemDisplay: number[];
-  setItemDisplay: (ids: number[]) => void;
-  itemList: Episode[];
-  setItemList: (el: Episode[]) => void;
-  selectedItem: number | null;
-  setSelectedItem: (id: number | null) => void;
+  app: AppState;
+  setApp: (app: AppState) => void;
   className: string;
-  onCardClick: (id: number | null) => void;
 }
 
 const EpisodeSelector = ({
-  itemDisplay,
-  setItemDisplay,
-  itemList,
+  app,
+  setApp,
   className,
-  selectedItem,
-  setSelectedItem,
-  onCardClick,
 }: EpisodeSelectorProps): JSX.Element => {
   return (
     <div className={`${className} Selector`}>
-      <EpisodeFilterBar
-        itemType={className}
-        itemDisplay={itemDisplay}
-        setItemDisplay={setItemDisplay}
-        itemList={itemList}
-        itemSearchFunction={searchEpisode}
-        selectedItem={selectedItem}
-        setSelectedItem={setSelectedItem}
-      />
+      <EpisodeFilterBar app={app} setApp={setApp} itemType={className} />
       <DisplayList
-        ids={itemDisplay}
-        itemList={itemList}
+        ids={app.episodeDisplay}
+        itemList={app.episodeList}
         itemType={className}
-        onCardClick={onCardClick}
+        onCardClick={(id) => setApp({ ...app, selectedEpisode: id })}
       />
     </div>
   );

@@ -1,5 +1,4 @@
 import Episode from "../../types/Episode";
-import nameEpisodeCard from "../../utils/episodes/nameEpisodeCard";
 import presentInIdList from "../../utils/presentInIdList";
 import Card from "./EpisodeCard";
 
@@ -7,7 +6,7 @@ interface EpisodeDisplayListProps {
   ids: number[];
   itemList: Episode[];
   itemType: string;
-  onCardClick: (id: number | null) => void;
+  onCardClick: (id: number) => void;
 }
 
 const EpisodeDisplayList = ({
@@ -31,14 +30,7 @@ const EpisodeDisplayList = ({
       </p>
       <div className="results">
         {filteredItems.map((el: Episode) => (
-          <Card
-            key={el.id}
-            item={el}
-            name={nameEpisodeCard(el)}
-            id={el.id}
-            summary={el.summary}
-            onClick={onCardClick}
-          />
+          <Card key={el.id} episode={el} onClick={onCardClick} />
         ))}
       </div>
     </section>

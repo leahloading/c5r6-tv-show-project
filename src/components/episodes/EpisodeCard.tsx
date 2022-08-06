@@ -1,31 +1,23 @@
 import Episode from "../../types/Episode";
+import nameEpisodeCard from "../../utils/episodes/nameEpisodeCard";
 import stripHtmlTags from "../../utils/stripHtmlTags";
 
 interface EpisodeCardProp {
-  item: Episode;
-  id: number;
-  name: string;
-  summary: string;
-  onClick: (id: number | null) => void;
+  episode: Episode;
+  onClick: (id: number) => void;
 }
 
-function EpisodeCard({
-  item,
-  id,
-  name,
-  summary,
-  onClick,
-}: EpisodeCardProp): JSX.Element {
+function EpisodeCard({ episode, onClick }: EpisodeCardProp): JSX.Element {
   return (
-    <article id={id.toString()}>
-      <h3 className="card-header">{name}</h3>
+    <article id={episode.id.toString()}>
+      <h3 className="card-header">{nameEpisodeCard(episode)}</h3>
       <div className="card-main">
         <div className="image-container">
-          <img src={item.image.medium} alt={`${item.name}`} />
+          <img src={episode.image.medium} alt={`${episode.name}`} />
         </div>
         <div className="summary-pick">
-          <button onClick={() => onClick(id)}>Pick</button>
-          <p>{stripHtmlTags(summary)}</p>
+          <button onClick={() => onClick(episode.id)}>Pick</button>
+          <p>{stripHtmlTags(episode.summary)}</p>
         </div>
       </div>
     </article>

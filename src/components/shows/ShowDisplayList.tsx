@@ -1,13 +1,12 @@
 import Show from "../../types/Show";
 import presentInIdList from "../../utils/presentInIdList";
-import nameShowCard from "../../utils/shows/nameShowCard";
 import ShowCard from "./ShowCard";
 
 interface ShowDisplayListProps {
   ids: number[];
   itemList: Show[];
   itemType: string;
-  onCardClick: (id: number | null) => void;
+  onCardClick: (id: number) => void;
 }
 
 const ShowDisplayList = ({
@@ -27,14 +26,7 @@ const ShowDisplayList = ({
       </p>
       <div className="results">
         {filteredItems.map((el: Show) => (
-          <ShowCard
-            key={el.id}
-            item={el}
-            name={nameShowCard(el)}
-            id={el.id}
-            summary={el.summary}
-            onClick={onCardClick}
-          />
+          <ShowCard key={el.id} show={el} onClick={onCardClick} />
         ))}
       </div>
     </section>

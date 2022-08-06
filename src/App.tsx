@@ -14,7 +14,7 @@ import nullAppState from "./utils/nullAppState";
 function App(): JSX.Element {
   const [app, setApp] = useState<AppState>(nullAppState);
 
-  // intialise
+  // intialise load shows
   useEffect(() => {
     getShows(() => fetchStaticShows()).then((shows) => {
       const sortedShows = sortShowsAlphabetically(shows);
@@ -30,7 +30,6 @@ function App(): JSX.Element {
   }, []);
 
   // when show is selected
-
   useEffect(() => {
     if (app.selectedShow !== null) {
       const showToLoad: Show = app.showList.filter(
@@ -66,16 +65,7 @@ function App(): JSX.Element {
   return (
     <>
       <PageHeader />
-      <PageMain
-        app={app}
-        setApp={setApp}
-        episodeList={app.episodeList}
-        setEpisodeList={(i) => setApp({ ...app, episodeList: i })}
-        selectedEpisode={app.selectedEpisode}
-        setSelectedEpisode={(i) => setApp({ ...app, selectedEpisode: i })}
-        episodeDisplay={app.episodeDisplay}
-        setEpisodeDisplay={(i) => setApp({ ...app, episodeDisplay: i })}
-      />
+      <PageMain app={app} setApp={setApp} />
       <PageFooter />
     </>
   );
