@@ -1,6 +1,6 @@
 import Episode from "../../types/Episode";
 import nameEpisodeCard from "../../utils/episodes/nameEpisodeCard";
-import presentInIdList from "../../utils/episodes/presentInIdList";
+import presentInIdList from "../../utils/presentInIdList";
 import Card from "./EpisodeCard";
 
 interface EpisodeDisplayListProps {

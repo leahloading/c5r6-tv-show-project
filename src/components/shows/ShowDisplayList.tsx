@@ -1,5 +1,5 @@
 import Show from "../../types/Show";
-import presentInIdList from "../../utils/episodes/presentInIdList";
+import presentInIdList from "../../utils/presentInIdList";
 import nameShowCard from "../../utils/shows/nameShowCard";
 import ShowCard from "./ShowCard";
 
