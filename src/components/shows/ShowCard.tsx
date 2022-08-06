@@ -1,16 +1,21 @@
-import Episode from "../types/Episode";
-import Show from "../types/Show";
-import stripHtmlTags from "../utils/stripHtmlTags";
+import Show from "../../types/Show";
+import stripHtmlTags from "../../utils/stripHtmlTags";
 
-interface Prop {
-  item: Episode | Show;
+interface ShowCardProp {
+  item: Show;
   id: number;
   name: string;
   summary: string;
   onClick: (id: number | null) => void;
 }
 
-function Card({ item, id, name, summary, onClick }: Prop): JSX.Element {
+function ShowCard({
+  item,
+  id,
+  name,
+  summary,
+  onClick,
+}: ShowCardProp): JSX.Element {
   return (
     <article id={id.toString()}>
       <h3 className="card-header">{name}</h3>
@@ -27,4 +32,4 @@ function Card({ item, id, name, summary, onClick }: Prop): JSX.Element {
   );
 }
 
-export default Card;
+export default ShowCard;

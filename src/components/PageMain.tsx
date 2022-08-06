@@ -1,11 +1,7 @@
 import Episode from "../types/Episode";
 import Show from "../types/Show";
-import generateEpisodeCode from "../utils/generateEpisodeCode";
-import nameEpisodeCard from "../utils/nameEpisodeCard";
-import nameShowCard from "../utils/nameShowCard";
-import searchEpisode from "../utils/searchEpisode";
-import searchShow from "../utils/searchShows";
-import Selector from "./Selector";
+import EpisodeSelector from "./episodes/EpisodeSelector";
+import ShowSelector from "./shows/ShowSelector";
 
 interface Props {
   episodeDisplay: number[];
@@ -36,43 +32,29 @@ const PageMain = ({
   selectedEpisode,
   setSelectedEpisode,
 }: Props): JSX.Element => {
-  function dropdownEpisodeName(el: Episode | Show) {
-    if ("season" in el) {
-      return `${generateEpisodeCode(el)} - ${el.name}`;
-    } else {
-      return el.name;
-    }
-  }
-
   return (
     <main>
-      <Selector
+      <ShowSelector
         className="Show"
         selectedItem={selectedShow}
         setSelectedItem={setSelectedShow}
         itemList={showList}
         setItemList={setShowList}
-        dropdownItemName={(show: Show | Episode) => show.name}
         itemDisplay={showDisplay}
         setItemDisplay={setShowDisplay}
-        itemSearchFunction={searchShow}
         onCardClick={setSelectedShow}
-        nameCard={nameShowCard}
       />
 
       {selectedShow === null || (
-        <Selector
+        <EpisodeSelector
           className="Episode"
           selectedItem={selectedEpisode}
           setSelectedItem={setSelectedEpisode}
           itemList={episodeList}
           setItemList={setEpisodeList}
-          dropdownItemName={dropdownEpisodeName}
           itemDisplay={episodeDisplay}
           setItemDisplay={setEpisodeDisplay}
-          itemSearchFunction={searchEpisode}
           onCardClick={setSelectedEpisode}
-          nameCard={nameEpisodeCard}
         />
       )}
     </main>

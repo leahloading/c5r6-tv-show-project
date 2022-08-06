@@ -4,11 +4,11 @@ import PageHeader from "./components/PageHeader";
 import PageMain from "./components/PageMain";
 import Episode from "./types/Episode";
 import Show from "./types/Show";
-import fetchEpisodesFromURL from "./utils/fetchEpisodes";
-import fetchStaticShows from "./utils/fetchStaticShows";
-import getEpisodes from "./utils/getEpisodes";
-import getShows from "./utils/getShows";
-import sortShowsAlphabetically from "./utils/sortShowsAlphabetically";
+import fetchEpisodesFromURL from "./utils/episodes/fetchEpisodes";
+import fetchStaticShows from "./utils/shows/fetchStaticShows";
+import getEpisodes from "./utils/episodes/getEpisodes";
+import getShows from "./utils/shows/getShows";
+import sortShowsAlphabetically from "./utils/shows/sortShowsAlphabetically";
 
 function App(): JSX.Element {
   const [episodeDisplay, setEpisodeDisplay] = useState<number[]>([]);

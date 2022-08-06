@@ -1,35 +1,28 @@
 import { useState } from "react";
-import Episode from "../types/Episode";
-import Show from "../types/Show";
+import Show from "../../types/Show";
+import searchShow from "../../utils/shows/searchShows";
 
-interface EpisodeSelectorProps {
+interface ShowFilterBarProps {
   itemType: string;
   itemDisplay: number[];
   setItemDisplay: (ids: number[]) => void;
-  itemList: (Episode | Show)[];
-  dropdownItemName: (el: Episode | Show) => string;
-  itemSearchFunction: (
-    searchTerm: string,
-    itemList: (Episode | Show)[]
-  ) => number[];
+  itemList: Show[];
   selectedItem: number | null;
   setSelectedItem: (id: number | null) => void;
 }
 
-const FilterBar = ({
+const ShowFilterBar = ({
   itemType,
   itemDisplay,
   setItemDisplay,
   itemList,
-  dropdownItemName,
-  itemSearchFunction,
   selectedItem,
   setSelectedItem,
-}: EpisodeSelectorProps): JSX.Element => {
+}: ShowFilterBarProps): JSX.Element => {
   const [searchTerm, setSearchTerm] = useState("");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setItemDisplay(itemSearchFunction(e.target.value, itemList));
+    setItemDisplay(searchShow(e.target.value, itemList));
     setSearchTerm(e.target.value);
   };
 
@@ -61,15 +54,15 @@ const FilterBar = ({
         placeholder={`search ${itemType.toLowerCase()}s...`}
       />
       <select
-        name="episode"
-        id="episode-select"
+        name="show"
+        id="show-select"
         onChange={handleSelect}
         value={selectedItem ? selectedItem : undefined}
       >
         <option value="">Select All</option>
         {itemList.map((el) => (
           <option key={el.id} value={el.id}>
-            {dropdownItemName(el)}
+            {el.name}
           </option>
         ))}
       </select>
@@ -77,4 +70,4 @@ const FilterBar = ({
   );
 };
 
-export default FilterBar;
+export default ShowFilterBar;

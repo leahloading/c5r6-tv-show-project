@@ -1,46 +1,36 @@
-import Episode from "../types/Episode";
-import Show from "../types/Show";
-import DisplayList from "./DisplayList";
-import FilterBar from "./FilterBar";
+import Episode from "../../types/Episode";
+import searchEpisode from "../../utils/episodes/searchEpisode";
+import DisplayList from "./EpisodeDisplayList";
+import EpisodeFilterBar from "./EpisodeFilterBar";
 
-interface SelectorProps {
+interface EpisodeSelectorProps {
   itemDisplay: number[];
   setItemDisplay: (ids: number[]) => void;
-  itemList: Episode[] | Show[];
-  setItemList: ((show: Show[]) => void) | ((el: Episode[]) => void);
+  itemList: Episode[];
+  setItemList: (el: Episode[]) => void;
   selectedItem: number | null;
   setSelectedItem: (id: number | null) => void;
   className: string;
-  dropdownItemName: (el: Episode | Show) => string;
-  itemSearchFunction: (
-    searchTerm: string,
-    itemList: (Episode | Show)[]
-  ) => number[];
   onCardClick: (id: number | null) => void;
-  nameCard: (item: Episode | Show) => string;
 }
 
-const Selector = ({
+const EpisodeSelector = ({
   itemDisplay,
   setItemDisplay,
   itemList,
   className,
-  dropdownItemName,
-  itemSearchFunction,
   selectedItem,
   setSelectedItem,
   onCardClick,
-  nameCard,
-}: SelectorProps): JSX.Element => {
+}: EpisodeSelectorProps): JSX.Element => {
   return (
     <div className={`${className} Selector`}>
-      <FilterBar
+      <EpisodeFilterBar
         itemType={className}
         itemDisplay={itemDisplay}
         setItemDisplay={setItemDisplay}
         itemList={itemList}
-        dropdownItemName={dropdownItemName}
-        itemSearchFunction={itemSearchFunction}
+        itemSearchFunction={searchEpisode}
         selectedItem={selectedItem}
         setSelectedItem={setSelectedItem}
       />
@@ -48,11 +38,10 @@ const Selector = ({
         ids={itemDisplay}
         itemList={itemList}
         itemType={className}
-        nameCard={nameCard}
         onCardClick={onCardClick}
       />
     </div>
   );
 };
 
-export default Selector;
+export default EpisodeSelector;

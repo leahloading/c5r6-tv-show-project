@@ -1,8 +1,7 @@
-import Episode from "../types/Episode";
-import Show from "../types/Show";
+import Episode from "../../types/Episode";
 
 function filterEpisodes(
-  { summary, name }: Episode | Show,
+  { summary, name }: Episode,
   searchTerm: string
 ): boolean {
   [summary, name, searchTerm] = [summary, name, searchTerm].map((e) =>

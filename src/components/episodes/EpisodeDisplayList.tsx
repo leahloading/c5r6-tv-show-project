@@ -1,24 +1,22 @@
-import Episode from "../types/Episode";
-import Show from "../types/Show";
-import presentInIdList from "../utils/presentInIdList";
-import Card from "./Card";
+import Episode from "../../types/Episode";
+import nameEpisodeCard from "../../utils/episodes/nameEpisodeCard";
+import presentInIdList from "../../utils/episodes/presentInIdList";
+import Card from "./EpisodeCard";
 
-interface DisplayListProps {
+interface EpisodeDisplayListProps {
   ids: number[];
-  itemList: (Episode | Show)[];
+  itemList: Episode[];
   itemType: string;
-  nameCard: (item: Episode | Show) => string;
   onCardClick: (id: number | null) => void;
 }
 
-const DisplayList = ({
+const EpisodeDisplayList = ({
   ids,
   itemList,
   itemType,
-  nameCard,
   onCardClick,
-}: DisplayListProps): JSX.Element => {
-  const filteredItems = itemList.filter((item: Episode | Show) =>
+}: EpisodeDisplayListProps): JSX.Element => {
+  const filteredItems = itemList.filter((item: Episode) =>
     presentInIdList(item.id, ids)
   );
   console.log(
@@ -32,11 +30,11 @@ const DisplayList = ({
         {itemType} found: {filteredItems.length}
       </p>
       <div className="results">
-        {filteredItems.map((el: Episode | Show) => (
+        {filteredItems.map((el: Episode) => (
           <Card
             key={el.id}
             item={el}
-            name={nameCard(el)}
+            name={nameEpisodeCard(el)}
             id={el.id}
             summary={el.summary}
             onClick={onCardClick}
@@ -47,4 +45,4 @@ const DisplayList = ({
   );
 };
 
-export default DisplayList;
+export default EpisodeDisplayList;

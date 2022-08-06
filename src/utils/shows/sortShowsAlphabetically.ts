@@ -1,4 +1,4 @@
-import Show from "../types/Show";
+import Show from "../../types/Show";
 
 function sortShowsAlphabetically(showList: Show[]): Show[] {
   const sortedShows = showList.sort((showA, showB) =>

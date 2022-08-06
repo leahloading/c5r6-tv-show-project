@@ -1,6 +1,6 @@
-import nullEpisode from "../data/nullEpisode.json";
-import Episode from "../types/Episode";
-import WideEpisode from "../types/WideEpisode";
+import nullEpisode from "../../data/nullEpisode.json";
+import Episode from "../../types/Episode";
+import WideEpisode from "../../types/WideEpisode";
 
 const getEpisodes = async (
   fetchEpisodes: () => Promise<WideEpisode[]>

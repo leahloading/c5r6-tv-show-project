@@ -1,4 +1,4 @@
-import Show from "../types/Show";
+import Show from "../../types/Show";
 import nameShowCard from "./nameShowCard";
 
 test("nameShowCard returns an appropriate name for a given show", () => {

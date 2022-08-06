@@ -1,4 +1,4 @@
-import Episode from "../types/Episode";
+import Episode from "../../types/Episode";
 import filterEpisodes from "./filterEpisodes";
 
 test("filterEpisodes returns episodes matching the search criteria", () => {

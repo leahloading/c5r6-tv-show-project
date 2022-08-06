@@ -1,8 +1,7 @@
-import Episode from "../types/Episode";
-import Show from "../types/Show";
+import Episode from "../../types/Episode";
 import generateEpisodeCode from "./generateEpisodeCode";
 
-const nameEpisodeCard = (item: Episode | Show): string => {
+const nameEpisodeCard = (item: Episode): string => {
   const episodeCode = "season" in item && ` - ${generateEpisodeCode(item)}`;
   return `${item.name}${episodeCode}`;
 };
