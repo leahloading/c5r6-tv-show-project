@@ -47,6 +47,7 @@ const ShowFilterBar = ({
         showDisplay: [id],
         selectedShow: id,
       });
+      setDropdownSelection(id.toString());
     }
   };
 
@@ -55,6 +56,8 @@ const ShowFilterBar = ({
       ...app,
       showDisplay: app.showList.map((item) => item.id),
       selectedShow: null,
+      // reset episode filter bar state for next show
+      selectedEpisode: null,
     });
     setSearchTerm("");
     setDropdownSelection("");

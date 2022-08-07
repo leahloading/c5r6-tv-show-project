@@ -53,6 +53,7 @@ const EpisodeFilterBar = ({
         episodeDisplay: [id],
         selectedEpisode: id,
       });
+      setDropdownSelection(id.toString());
     }
   };
 
