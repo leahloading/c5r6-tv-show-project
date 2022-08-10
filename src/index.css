@@ -1,0 +1,95 @@
+* {
+  margin: 0 auto;
+  padding: 10px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: large;
+}
+
+.display .results {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.episode article {
+  width: 300px;
+}
+
+/* https://css-tricks.com/box-sizing/ */
+/* sane defaults across browsers */
+/* html {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+  
+  *,
+  *:before,
+  *:after {
+    -webkit-box-sizing: inherit;
+    -moz-box-sizing: inherit;
+    box-sizing: inherit;
+  } */
+
+article,
+.results {
+  padding: 0px;
+}
+
+article .card-header {
+  text-align: left;
+}
+
+.image-container {
+  padding: 0px;
+  vertical-align: top;
+}
+
+img {
+  object-fit: contain;
+  vertical-align: top;
+}
+
+.show .card-main {
+  display: flex;
+  flex-direction: row;
+  padding: 0;
+}
+
+.filter-bar {
+  width: auto;
+  display: inline-flex;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.filter-bar select {
+  max-width: 80vw;
+}
+
+input,
+select {
+  min-width: 400px;
+  max-width: 800px;
+  border: black 3px solid;
+  border-radius: 10px;
+}
+
+button {
+  border: none;
+  border-radius: 10px;
+  font-weight: bold;
+  border: solid transparent 2px;
+}
+
+.selected {
+  border: solid black 2px;
+}
+
+ul {
+  display: inline-flex;
+  gap: 1px;
+  list-style-type: none;
+  flex-direction: row;
+  flex-wrap: wrap;
+}

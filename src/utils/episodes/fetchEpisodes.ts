@@ -1,4 +1,4 @@
-import WideEpisode from "../types/WideEpisode";
+import WideEpisode from "../../types/WideEpisode";
 
 async function fetchEpisodesFromURL(URL: string): Promise<WideEpisode[]> {
   const response = await fetch(URL);

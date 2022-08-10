@@ -1,7 +1,7 @@
-import Episode from "../types/Episode";
-import removeEpNameSpace from "./removeEpNameSpace";
+import Episode from "../../types/Episode";
+import filterEpisodes from "./filterEpisodes";
 
-test("removeEpNameSpec returns the episode name as lower case, without any spaces", () => {
+test("filterEpisodes returns episodes matching the search criteria", () => {
   const mockEpisode: Episode = {
     id: 4952,
     url: "https://www.tvmaze.com/episodes/4952/game-of-thrones-1x01-winter-is-coming",
@@ -30,5 +30,6 @@ test("removeEpNameSpec returns the episode name as lower case, without any space
       },
     },
   };
-  expect(removeEpNameSpace(mockEpisode)).toBe("winter-is-coming");
+
+  expect(filterEpisodes(mockEpisode, "Winter")).toBe(true);
 });

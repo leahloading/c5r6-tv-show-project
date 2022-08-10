@@ -1,7 +1,7 @@
-import Episode from "../types/Episode";
-import filterEpisodes from "./filterEpisodes";
+import Episode from "../../types/Episode";
+import nameEpisodeCard from "./nameEpisodeCard";
 
-test("filterEpisodes returns episodes matching the search criteria", () => {
+test("nameEpisodeCard returns an appropriate name for a given episode", () => {
   const mockEpisode: Episode = {
     id: 4952,
     url: "https://www.tvmaze.com/episodes/4952/game-of-thrones-1x01-winter-is-coming",
@@ -30,10 +30,5 @@ test("filterEpisodes returns episodes matching the search criteria", () => {
       },
     },
   };
-
-  expect(filterEpisodes(mockEpisode, "Winter")).toBe(true);
+  expect(nameEpisodeCard(mockEpisode)).toBe("Winter is Coming - S0101");
 });
-
-// test("getData returns the expected length", () => {
-//     expect(getData()).toHaveLength(73);
-//   });

@@ -1,4 +1,4 @@
-import Episode from "../types/Episode";
+import Episode from "../../types/Episode";
 
 function filterEpisodes(
   { summary, name }: Episode,

@@ -1,69 +1,72 @@
-import React, { useEffect, useState } from "react";
-import EpisodeCard from "./components/EpisodeCard";
-import Episode from "./types/Episode";
-import fetchEpisodesFromURL from "./utils/fetchEpisodes";
-import filterEpisodes from "./utils/filterEpisodes";
-import generateEpisodeCode from "./utils/generateEpisodeCode";
-import getEpisodes from "./utils/getEpisodes";
+import { useEffect, useState } from "react";
+import PageFooter from "./components/PageFooter";
+import PageHeader from "./components/PageHeader";
+import PageMain from "./components/PageMain";
+import Show from "./types/Show";
+import fetchEpisodesFromURL from "./utils/episodes/fetchEpisodes";
+import fetchStaticShows from "./utils/shows/fetchStaticShows";
+import getEpisodes from "./utils/episodes/getEpisodes";
+import getShows from "./utils/shows/getShows";
+import sortShowsAlphabetically from "./utils/shows/sortShowsAlphabetically";
+import AppState from "./types/AppState";
+import nullAppState from "./utils/nullAppState";
 
 function App(): JSX.Element {
-  const [searchTerm, setSearchTerm] = useState("");
-  const [episodeList, setEpisodeList] = useState<Episode[]>([]);
+  const [app, setApp] = useState<AppState>(nullAppState);
 
+  // intialise load shows
   useEffect(() => {
-    getEpisodes(() =>
-      fetchEpisodesFromURL("https://api.tvmaze.com/shows/83/episodes")
-    ).then((data) => setEpisodeList(data));
+    getShows(() => fetchStaticShows()).then((shows) => {
+      const sortedShows = sortShowsAlphabetically(shows);
+      setApp((app) => {
+        const newAppState: AppState = {
+          ...app,
+          showList: sortedShows,
+          showDisplay: sortedShows.map((show) => show.id),
+        };
+        return newAppState;
+      });
+    });
   }, []);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchTerm(e.target.value);
-  };
-
+  // when show is selected
   useEffect(() => {
-    console.log(searchTerm);
-  }, [searchTerm]);
+    if (app.selectedShow !== null) {
+      const showToLoad: Show = app.showList.filter(
+        (sh) => sh.id === app.selectedShow
+      )[0];
+      getEpisodes(() =>
+        fetchEpisodesFromURL(`${showToLoad?._links.self.href}/episodes`)
+      ).then((episodes) => {
+        setApp((app) => {
+          return {
+            ...app,
+            showDisplay: [showToLoad.id],
+            selectedShow: app.selectedShow,
+            episodeDisplay: episodes.map((ep) => ep.id),
+            episodeList: episodes,
+          };
+        });
+      });
+    }
+  }, [app.selectedShow, app.showList]);
 
-  const handleSelect = (e: React.ChangeEvent<HTMLSelectElement>) =>
-    setSearchTerm(e.target.value);
-  const handleReset = () => setSearchTerm("");
+  // when episode is selected
+  useEffect(() => {
+    setApp((app) => {
+      if (app.selectedEpisode !== null) {
+        return { ...app, episodeDisplay: [app.selectedEpisode] };
+      } else {
+        return { ...app };
+      }
+    });
+  }, [app.selectedEpisode, app.episodeList]);
 
-  const filteredEpisodes = episodeList.filter((ep) =>
-    filterEpisodes(ep, searchTerm)
-  );
   return (
     <>
-      <h1>TV Shows</h1>
-      <input type="text" value={searchTerm} onChange={handleChange} />
-      <select
-        name="episode"
-        id="episode-select"
-        onChange={handleSelect}
-        value={searchTerm}
-      >
-        <option value="">Select All</option>
-        {episodeList.map((ep) => (
-          <option key={ep.id} value={ep.name}>{`${generateEpisodeCode(ep)} - ${
-            ep.name
-          }`}</option>
-        ))}
-      </select>
-      <button onClick={handleReset}>reset search</button>
-      <p>Episodes found: {filteredEpisodes.length}</p>
-      {filteredEpisodes.map((ep) => (
-        <EpisodeCard key={ep.id} episode={ep} />
-      ))}
-
-      <footer>
-        Data has been obtained from{" "}
-        <a
-          href="https://www.tvmaze.com/api#licensing"
-          target="_blank"
-          rel="noreferrer"
-        >
-          TV Maze
-        </a>
-      </footer>
+      <PageHeader />
+      <PageMain app={app} setApp={setApp} />
+      <PageFooter />
     </>
   );
 }
